@@ -8,7 +8,6 @@ public class BeanCommodity {
     private String c_img;
     private String c_detail;
     private String c_type;
-    private String zyy;
 
     public int getC_id() {
         return c_id;
