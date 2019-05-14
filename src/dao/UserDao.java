@@ -17,7 +17,9 @@ import java.util.List;
 public class UserDao {
     @Resource(name = "jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
+    public void asdasd(){
 
+    }
 //    普通用户注册
 //    public void user_register(String user_id, String user_name, String user_pwd, String confirmPwd) throws Exception {
 //        if (user_id.equals(""))
