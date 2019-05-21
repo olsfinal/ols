@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @org.springframework.stereotype.Controller
-public class OrderController extends HttpServlet {
+public class OrderController {
 
     @RequestMapping("/orders")
     public ModelAndView Orders(HttpServletRequest req, HttpServletResponse resq) throws Exception{

@@ -37,24 +37,14 @@ public class InfoDao {
 
 //    更新地址
     public void updateInfo(BeanInfo beanInfo) throws Exception {
-        try {
 
-            String sql = "update info_t set address = ? , i_name = ? , tel = ? where getInfo_id = ?";
-            jdbcTemplate.update(sql,beanInfo.getAddress,beanInfo.getI_name,beanInfo.getTel,beanInfo.getInfo_id);
+        String sql = "update info_t set address = ? , i_name = ? , tel = ? where info_id = ?";
+        jdbcTemplate.update(sql,beanInfo.getAddress(),beanInfo.getI_name(),beanInfo.getTel(),beanInfo.getInfo_id());
 
-        } catch (Exception ex) {
-            throw new Exception("updateUser failed");
-        }
     }
 //    删除地址
     public void delInfo(BeanInfo beanInfo) throws Exception {
-        try {
-
-            String sql = "update info_t set address = ? , i_name = ? , tel = ? where getInfo_id = ?";
-            jdbcTemplate.update(sql,beanInfo.getAddress,beanInfo.getI_name,beanInfo.getTel,beanInfo.getInfo_id);
-
-        } catch (Exception ex) {
-            throw new Exception("updateUser failed");
-        }
+        String sql = "update info_t set address = ? , i_name = ? , tel = ? where info_id = ?";
+        jdbcTemplate.update(sql,beanInfo.getAddress(),beanInfo.getI_name(),beanInfo.getTel(),beanInfo.getInfo_id());
     }
 }

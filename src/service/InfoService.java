@@ -36,6 +36,7 @@ public class InfoService {
             List<BeanInfo> infos = infoDao.loadInfos(user_id);
             if(infos==null) throw new Exception("您还没有添加地址");
             Collections.sort(infos);
+            return infos;
         }catch (Exception e){
             throw new Exception("获取地址失败");
         }

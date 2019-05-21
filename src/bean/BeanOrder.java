@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class BeanOrder {
     private int order_id;
-    private Date time;
+    private Date o_time;
     private String user_id;
     private String o_address;
     private String o_tel;
@@ -17,12 +17,12 @@ public class BeanOrder {
         this.order_id = order_id;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getO_time() {
+        return o_time;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setO_time(Date o_time) {
+        this.o_time = o_time;
     }
 
     public String getUser_id() {
