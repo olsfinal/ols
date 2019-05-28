@@ -42,15 +42,15 @@ public class InfoDao {
     }
 
 //    更新地址
-    public void updateInfo(BeanInfo beanInfo) throws Exception {
+    public void updateInfo(BeanInfo beanInfo) {
 
         String sql = "update info_t set address = ? , i_name = ? , tel = ? where info_id = ?";
         jdbcTemplate.update(sql,beanInfo.getAddress(),beanInfo.getI_name(),beanInfo.getTel(),beanInfo.getInfo_id());
 
     }
 //    删除地址
-    public void delInfo(BeanInfo beanInfo) throws Exception {
-        String sql = "update info_t set address = ? , i_name = ? , tel = ? where info_id = ?";
-        jdbcTemplate.update(sql,beanInfo.getAddress(),beanInfo.getI_name(),beanInfo.getTel(),beanInfo.getInfo_id());
+    public void delInfo(int info_id) {
+        String sql = "delete from info_t where info_id = ?";
+        jdbcTemplate.update(sql,info_id);
     }
 }

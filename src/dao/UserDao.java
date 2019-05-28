@@ -19,7 +19,7 @@ public class UserDao {
         jdbcTemplate.update(sql2,user.getUser_id(),user.getUser_name(),user.getUser_pwd(),user.getAdmin());
     }
 
-    public BeanUser getUser(String user_id) throws Exception {
+    public BeanUser getUser(String user_id)  {
         String sql ="select * from user_t where user_id = ?";
         RowMapper<BeanUser> rowMapper = new BeanPropertyRowMapper<BeanUser>(BeanUser.class);
         BeanUser user = jdbcTemplate.queryForObject(sql,rowMapper,user_id);
@@ -35,6 +35,12 @@ public class UserDao {
         } catch (Exception ex) {
             throw new Exception("updateUser failed");
         }
+    }
+
+    public void deleteUser(String userid){
+        String sql ="delete from user_t where user_id = ?";
+        RowMapper<BeanUser> rowMapper = new BeanPropertyRowMapper<BeanUser>(BeanUser.class);
+        jdbcTemplate.update(sql,rowMapper,userid);
     }
 
 }

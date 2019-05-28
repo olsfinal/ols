@@ -40,4 +40,26 @@ public class InfoService {
             throw new Exception("获取地址失败");
         }
     }
+
+    public BeanInfo getInfos(int info_id) throws Exception{
+        try{
+            return infoDao.loadInfoById(info_id);
+        }catch (Exception e){
+            throw new Exception("获取地址失败");
+        }
+    }
+
+    public void modifyInfo(BeanInfo info) throws Exception {
+        BeanInfo info1 = infoDao.loadInfoById(info.getInfo_id());
+        if(info1==null) throw new Exception("获取地址失败");
+        if(info.getUser_id()!=info1.getUser_id())info1.setUser_id(info.getUser_id());
+        if(info.getAddress()!=info1.getAddress())info1.setAddress(info.getAddress());
+        if(info.getI_name()!=info1.getI_name())info1.setI_name(info.getI_name());
+        if(info.getTel()!=info1.getTel())info1.setTel(info.getTel());
+        infoDao.updateInfo(info1);
+    }
+
+    public void deleteInfo(int info_id){
+        infoDao.delInfo(info_id);
+    }
 }

@@ -15,6 +15,9 @@ public class CommodityService {
     @Resource(name = "commodityDao")
     private CommodityDao commodityDao;
 
+    @Resource(name = "orderService")
+    private OrderService orderService;
+
     private List<BeanCommodity> commoditys;
 
     public CommodityDao getCommodityDao() {
@@ -23,6 +26,14 @@ public class CommodityService {
 
     public void setCommodityDao(CommodityDao commodityDao) {
         this.commodityDao = commodityDao;
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     //  获取所有商品的集合
@@ -37,7 +48,7 @@ public class CommodityService {
     }
     //   购买购物车内所有商品
     @Transactional
-    public void buyCommoditys(String user_id, ShoppingCart cart, OrderService orderService,int info_id) throws Exception {
+    public void buyCommoditys(String user_id, ShoppingCart cart,int info_id) throws Exception {
         Collection items = cart.getItems();
         Iterator i = items.iterator();
 

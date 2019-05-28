@@ -57,4 +57,17 @@ public class UserService {
         user.setAdmin(1);
         userDao.updateUser(user);
     }
+
+    public void modifyUser(BeanUser user) throws Exception {
+        if (user.getUser_id() == null || user.getUser_id().length() == 0) throw new Exception("没有该用户");
+        BeanUser user1 = userDao.getUser(user.getUser_id());
+        if (user1 == null) throw new Exception("没有该用户");
+        if(user.getUser_name()!=null)user1.setUser_name(user.getUser_name());
+        if(user.getUser_pwd()!=null)user1.setUser_pwd(user.getUser_pwd());
+        userDao.updateUser(user1);
+    }
+
+    public void deleteUser(String userid){
+        userDao.deleteUser(userid);
+    }
 }
