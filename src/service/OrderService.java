@@ -1,8 +1,11 @@
 package service;
 
+import bean.BeanInfo;
 import bean.BeanOrder;
 import bean.BeanOrderdetail;
+import dao.InfoDao;
 import dao.OrderDao;
+import dao.UserDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,6 +17,9 @@ public class OrderService {
     @Resource(name = "orderDao")
     private OrderDao orderDao;
 
+    @Resource(name = "infoDao")
+    private InfoDao infoDao;
+
     public OrderDao getOrderDao() {
         return orderDao;
     }
@@ -22,14 +28,26 @@ public class OrderService {
         this.orderDao = orderDao;
     }
 
+    public InfoDao getInfoDao() {
+        return infoDao;
+    }
+
+    public void setInfoDao(InfoDao infoDao) {
+        this.infoDao = infoDao;
+    }
+
     //    生成订单，返回order_id
-    public int generateOrder(String user_id) throws Exception{
+    public int generateOrder(String user_id,int info_id) throws Exception{
         int order_id=0;
     //    添加条目
         Date date = new Date();
         BeanOrder order = new BeanOrder();
+        BeanInfo info = infoDao.loadInfoById(info_id);
         order.setUser_id(user_id);
         order.setO_time(date);
+        order.setO_state(1);
+        order.setO_address(info.getAddress());
+        order.setO_tel(info.getTel());
         orderDao.addOrder(order);
     //    返回最大order_id
         order_id=orderDao.findMaxOrderid();

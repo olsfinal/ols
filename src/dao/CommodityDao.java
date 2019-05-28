@@ -1,16 +1,12 @@
 package dao;
 
 import bean.BeanCommodity;
-import cart.ShoppingCart;
-import cart.ShoppingCartItem;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import javax.swing.*;
-import java.util.ArrayList;
 import java.util.*;
 
 @Repository("commodityDao")
@@ -59,6 +55,12 @@ public class CommodityDao {
         String sql = "select * from commodity_t where c_id = ?";
         RowMapper<BeanCommodity> rowMapper = new BeanPropertyRowMapper<BeanCommodity>(BeanCommodity.class);
         return this.jdbcTemplate.queryForObject(sql, rowMapper,c_id);
+    }
+
+    public List<BeanCommodity> findAllCommodity() {
+        String sql = "select * from commodity_t";
+        RowMapper<BeanCommodity> rowMapper = new BeanPropertyRowMapper<BeanCommodity>(BeanCommodity.class);
+        return this.jdbcTemplate.query(sql, rowMapper);
     }
 
 }

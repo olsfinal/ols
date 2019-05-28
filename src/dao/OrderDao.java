@@ -21,23 +21,29 @@ public class OrderDao {
     }
 
     public int addOrder(BeanOrder beanOrder) {
-        String sql = "insert into order_t(user_id,o_time) value(?,?)";
+        String sql = "insert into order_t(user_id,o_time,o_address,o_tel,o_state) value(?,?,?,?,?)";
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = sdf.format(beanOrder.getO_time());
         Object[] objects=new Object[]{
                 beanOrder.getOrder_id(),
-                dateStr
+                dateStr,
+                beanOrder.getO_address(),
+                beanOrder.getO_tel(),
+                beanOrder.getO_state()
         };
         int num = this.jdbcTemplate.update(sql,objects);
         return num;
     }
 
     public int updateOrder(BeanOrder beanOrder) {
-        String sql = "update order_t set user_id = ? ,o_time = ?" +
+        String sql = "update order_t set user_id = ? ,o_time = ? ,o_address = ? ,o_tel = ? ,o_state = ?" +
                 " where order_id = ?";
         Object[] objects=new Object[]{
                 beanOrder.getUser_id(),
                 beanOrder.getO_time(),
+                beanOrder.getO_address(),
+                beanOrder.getO_tel(),
+                beanOrder.getO_state(),
                 beanOrder.getOrder_id()
         };
         int num = this.jdbcTemplate.update(sql,objects);

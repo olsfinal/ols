@@ -2,7 +2,6 @@ package service;
 
 import bean.BeanInfo;
 import dao.InfoDao;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -34,6 +34,12 @@ public class InfoDao {
         RowMapper<BeanInfo> rowMapper = new BeanPropertyRowMapper<BeanInfo>(BeanInfo.class);
         return jdbcTemplate.query(sql,rowMapper);
     }
+//    按id获取地址
+    public BeanInfo loadInfoById(int info_id){
+        String sql = "select * from info_t where info_id = ?";
+        RowMapper<BeanInfo> rowMapper = new BeanPropertyRowMapper<BeanInfo>(BeanInfo.class);
+        return jdbcTemplate.queryForObject(sql,rowMapper,info_id);
+    }
 
 //    更新地址
     public void updateInfo(BeanInfo beanInfo) throws Exception {

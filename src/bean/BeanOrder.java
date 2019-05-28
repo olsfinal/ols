@@ -8,6 +8,7 @@ public class BeanOrder {
     private String user_id;
     private String o_address;
     private String o_tel;
+    private int o_state;
 
     public int getOrder_id() {
         return order_id;
@@ -47,5 +48,13 @@ public class BeanOrder {
 
     public void setO_tel(String o_tel) {
         this.o_tel = o_tel;
+    }
+
+    public int getO_state() {
+        return o_state;
+    }
+
+    public void setO_state(int o_state) {
+        this.o_state = o_state;
     }
 }

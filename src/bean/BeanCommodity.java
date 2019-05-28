@@ -1,6 +1,6 @@
 package bean;
 
-public class BeanCommodity {
+public class BeanCommodity implements Comparable{
     private int c_id;
     private String c_name;
     private float c_price;
@@ -63,5 +63,11 @@ public class BeanCommodity {
 
     public void setC_type(String c_type) {
         this.c_type = c_type;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        BeanCommodity n = (BeanCommodity)o;
+        return this.c_id - n.c_id;
     }
 }
