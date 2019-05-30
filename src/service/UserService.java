@@ -35,7 +35,7 @@ public class UserService {
 
 //    注册
     @Transactional
-    public void register(String userid, String username, String pwd ,String pwd2) throws Exception{
+        public void register(String userid, String username, String pwd ,String pwd2) throws Exception{
         if (userid == null || userid.length() == 0) throw new Exception("请输入用户名");
         if (username == null || username.length() == 0) throw new Exception("请输入昵称");
         if (pwd == null || pwd.length() == 0) throw new Exception("请输入密码");

@@ -22,7 +22,6 @@ public class InfoService {
         this.infoDao = infoDao;
     }
 
-//    添加地址
     public void addInfo(BeanInfo beanInfo) throws Exception {
         try {
             infoDao.addInfo(beanInfo);
@@ -31,7 +30,6 @@ public class InfoService {
         }
     }
 
-//    获取某用户所有地址
     public Collection<BeanInfo> getInfos(String user_id) throws Exception{
         try {
             List<BeanInfo> infos = infoDao.loadInfos(user_id);
@@ -43,7 +41,6 @@ public class InfoService {
         }
     }
 
-//    获取单个地址
     public BeanInfo getInfos(int info_id) throws Exception{
         try{
             return infoDao.loadInfoById(info_id);
@@ -52,7 +49,6 @@ public class InfoService {
         }
     }
 
-//    修改地址
     public void modifyInfo(BeanInfo info) throws Exception {
         BeanInfo info1 = infoDao.loadInfoById(info.getInfo_id());
         if(info1==null) throw new Exception("获取地址失败");
@@ -63,7 +59,6 @@ public class InfoService {
         infoDao.updateInfo(info1);
     }
 
-//    删除地址
     public void deleteInfo(int info_id){
         infoDao.delInfo(info_id);
     }
