@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("userService")
 public class UserService {
@@ -20,6 +21,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
+//    登录
     public String checkuser(String userid, String pwd) throws Exception {
         if (userid == null || userid.length() == 0) throw new Exception("请输入用户名");
         if (pwd == null) throw new Exception("请输入密码");
@@ -31,6 +33,7 @@ public class UserService {
         return user.getUser_name();
     }
 
+//    注册
     @Transactional
     public void register(String userid, String username, String pwd ,String pwd2) throws Exception{
         if (userid == null || userid.length() == 0) throw new Exception("请输入用户名");
@@ -50,6 +53,7 @@ public class UserService {
         userDao.addUser(user1);
     }
 
+//    任命管理员
     public void appointAdmin(String userid) throws Exception {
         if (userid == null || userid.length() == 0) throw new Exception("没有该用户");
         BeanUser user = userDao.getUser(userid);
@@ -58,6 +62,7 @@ public class UserService {
         userDao.updateUser(user);
     }
 
+//    修改用户
     public void modifyUser(BeanUser user) throws Exception {
         if (user.getUser_id() == null || user.getUser_id().length() == 0) throw new Exception("没有该用户");
         BeanUser user1 = userDao.getUser(user.getUser_id());
@@ -67,7 +72,20 @@ public class UserService {
         userDao.updateUser(user1);
     }
 
+//    删除用户
     public void deleteUser(String userid){
         userDao.deleteUser(userid);
+    }
+
+//    重置密码
+    public void resetPasswd(String usrid) throws Exception {
+        BeanUser user = userDao.getUser(usrid);
+        user.setUser_pwd("123456");
+        userDao.updateUser(user);
+    }
+
+//    展示所有用户
+    public List<BeanUser> loadAllUsers(){
+        return userDao.findAllUsers();
     }
 }

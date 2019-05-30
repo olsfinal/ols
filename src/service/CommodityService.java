@@ -4,6 +4,7 @@ import bean.BeanCommodity;
 import cart.ShoppingCart;
 import cart.ShoppingCartItem;
 import dao.CommodityDao;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +43,14 @@ public class CommodityService {
         Collections.sort(commodities);
         return commoditys;
     }
+
+    //  获取所有商品的集合
+    public List<BeanCommodity> getCommoditys(String c_type) throws Exception {
+        List<BeanCommodity> commodities = commodityDao.findCommodityByType(c_type);
+        Collections.sort(commodities);
+        return commoditys;
+    }
+
     //  获取一件商品
     public BeanCommodity getCommodity(int c_id) throws Exception {
         return commodityDao.findCommodityById(c_id);
@@ -66,7 +75,7 @@ public class CommodityService {
         }
     }
     //  更新商品存货（购买商品时）
-    private void buyCommodity(int c_id, int od_number) throws Exception {
+    public void buyCommodity(int c_id, int od_number) throws Exception {
         BeanCommodity commodity = commodityDao.findCommodityById(c_id);
         if (commodity != null){
             int inventory = commodity.getC_inventory();
@@ -77,5 +86,20 @@ public class CommodityService {
                 throw new Exception("Not enough of " + c_id);
         }
 
+    }
+
+//    添加商品
+    public void addCommodity(BeanCommodity commodity){
+        commodityDao.addCommodity(commodity);
+    }
+
+//    删除商品
+    public void deleteCommodity(int c_id){
+        commodityDao.deleteCommodity(c_id);
+    }
+
+//    修改商品
+    public void modifyCommodity(BeanCommodity commodity){
+        commodityDao.updateCommodity(commodity);
     }
 }

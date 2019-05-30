@@ -71,4 +71,20 @@ public class OrderService {
     public List<BeanOrderdetail> loadOrderDetails(int order_id) throws Exception{
         return orderDao.findOrderdetailByOrderId(order_id);
     }
+
+    //  修改订单状态
+    public void changeOrderStatus(int order_id, int o_state){
+        BeanOrder order = orderDao.findOrderById(order_id);
+        order.setO_state(o_state);
+        orderDao.updateOrder(order);
+    }
+
+    //  根据状态返回订单
+    public List<BeanOrder> loadOrdersByState(int o_state){
+        return orderDao.findOrderByState(o_state);
+    }
+    //  根据用户和状态
+    public List<BeanOrder> loadOrdersByState(String userid,int o_state){
+        return orderDao.findOrderByState(userid,o_state);
+    }
 }
