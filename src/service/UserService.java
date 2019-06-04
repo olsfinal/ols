@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service("userService")
 public class UserService {
-    @Resource(name = "userDAO")
+    @Resource(name = "userDao")
     private UserDao userDao;
 
     public UserDao getUserDao() {
@@ -27,7 +27,6 @@ public class UserService {
         if (pwd == null) throw new Exception("请输入密码");
 
         BeanUser user = userDao.getUser(userid);
-
         if(!user.getUser_pwd().equals(pwd)) throw new Exception("密码错误");
 
         return user.getUser_name();

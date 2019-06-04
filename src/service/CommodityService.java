@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.StreamSupport;
 
 @Service("commodityService")
 public class CommodityService {
@@ -39,15 +40,13 @@ public class CommodityService {
 
     //  获取所有商品的集合
     public List<BeanCommodity> getCommoditys() throws Exception {
-        List<BeanCommodity> commodities = commodityDao.findAllCommodity();
-        Collections.sort(commodities);
+        List<BeanCommodity> commoditys = commodityDao.findAllCommodity();
         return commoditys;
     }
 
     //  获取所有商品的集合
     public List<BeanCommodity> getCommoditys(String c_type) throws Exception {
-        List<BeanCommodity> commodities = commodityDao.findCommodityByType(c_type);
-        Collections.sort(commodities);
+        List<BeanCommodity> commoditys = commodityDao.findCommodityByType(c_type);
         return commoditys;
     }
 

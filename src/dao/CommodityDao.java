@@ -31,7 +31,7 @@ public class CommodityDao {
 
 //    更新商品
     public int updateCommodity(BeanCommodity commodity) {
-        String sql = "update commodity_t set c_name = ? ,c_price = ? ,c_inventory ," +
+        String sql = "update commodity_t set c_name = ? ,c_price = ? ,c_inventory =?," +
                 "c_img = ? ,c_detail = ? ,c_type = ?" +
                 " where c_id = ?";
         Object[] objects=new Object[]{
@@ -61,6 +61,7 @@ public class CommodityDao {
         return this.jdbcTemplate.queryForObject(sql, rowMapper,c_id);
     }
 
+
 //    返回所有商品
     public List<BeanCommodity> findAllCommodity() {
         String sql = "select * from commodity_t";
@@ -74,4 +75,6 @@ public class CommodityDao {
         RowMapper<BeanCommodity> rowMapper = new BeanPropertyRowMapper<BeanCommodity>(BeanCommodity.class);
         return this.jdbcTemplate.query(sql, rowMapper,c_type);
     }
+
 }
+

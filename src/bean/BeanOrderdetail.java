@@ -5,6 +5,15 @@ public class BeanOrderdetail {
     private int c_id;
     private int od_number;
     private float od_price;
+    private String c_name;
+
+    public String getC_name() {
+        return c_name;
+    }
+
+    public void setC_name(String c_name) {
+        this.c_name = c_name;
+    }
 
     public int getOrder_id() {
         return order_id;

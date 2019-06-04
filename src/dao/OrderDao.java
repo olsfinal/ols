@@ -26,7 +26,7 @@ public class OrderDao {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = sdf.format(beanOrder.getO_time());
         Object[] objects=new Object[]{
-                beanOrder.getOrder_id(),
+                beanOrder.getUser_id(),
                 dateStr,
                 beanOrder.getO_address(),
                 beanOrder.getO_tel(),
@@ -77,10 +77,9 @@ public class OrderDao {
 
 //    返回某用户所有订单
     public List<BeanOrder> findAllOrder(String user_id) {
-        List<BeanOrder> orders;
         String sql = "select * from order_t where user_id = ?";
         RowMapper<BeanOrder> rowMapper = new BeanPropertyRowMapper<BeanOrder>(BeanOrder.class);
-        orders = this.jdbcTemplate.query(sql, rowMapper,user_id);
+        List<BeanOrder> orders = this.jdbcTemplate.query(sql, rowMapper,user_id);
         return orders;
     }
 

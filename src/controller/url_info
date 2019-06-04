@@ -84,8 +84,6 @@ confirmrefund 确认/拒绝 退款
 
 commoditys 显示所有商品                                                   ------ commoditys.jsp
 
-===============================================================================
-
 showaddcommoditys add商品界面                                             ------ addcommoditys.jsp
 
 addcommoditys 添加商品

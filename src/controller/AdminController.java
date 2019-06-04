@@ -10,6 +10,7 @@ import service.CommodityService;
 import service.OrderService;
 import service.UserService;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,7 +20,14 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class AdminController {
+    @Resource(name = "orderService")
+    private OrderService orderService;
 
+    @Resource(name = "commodityService")
+    private CommodityService commodityService;
+
+    @Resource(name = "userService")
+    private UserService userService;
 
 //    显示管理员主目录
     @RequestMapping("/aindex")
@@ -36,7 +44,6 @@ public class AdminController {
     public ModelAndView Checkrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 
-        OrderService orderService = (OrderService) session.getAttribute("orderService");
 //        获取所需要显示的订单状态
         int o_state= Integer.parseInt(request.getParameter("o_state"));
 //        根据订单状态o_state获得订单
@@ -53,7 +60,7 @@ public class AdminController {
     @RequestMapping("/confirmrefund")
     public ModelAndView Confirmrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-        OrderService orderService = (OrderService) session.getAttribute("orderService");
+
         int order_id= Integer.parseInt(request.getParameter("order_id"));
 
         int o_state= Integer.parseInt(request.getParameter("o_state"));
@@ -89,7 +96,6 @@ public class AdminController {
     public ModelAndView addcommoditys(HttpServletRequest request, HttpServletResponse resq) {
 
         HttpSession session = request.getSession();
-        CommodityService commodityService = (CommodityService) session.getAttribute("commodityService");
 //        从前端获取
         String c_name= request.getParameter("c_name");
         float c_price= Float.parseFloat(request.getParameter("c_price"));
@@ -135,7 +141,6 @@ public class AdminController {
     @RequestMapping("/modifyicommoditys")
     public ModelAndView modifyicommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-        CommodityService commodityService = (CommodityService) session.getAttribute("commodityService");
 //        从前端获取
         String c_name= request.getParameter("c_name");
         float c_price= Float.parseFloat(request.getParameter("c_price"));
@@ -169,7 +174,6 @@ public class AdminController {
     @RequestMapping("/removecommoditys")
     public ModelAndView removecommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-        CommodityService commodityService = (CommodityService) session.getAttribute("commodityService");
 //        从前端获取
         int c_id= Integer.parseInt(request.getParameter("Remove"));
 
@@ -202,7 +206,7 @@ public class AdminController {
     @RequestMapping("/rechargeuser")
     public ModelAndView rechargeuser(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-        UserService userService = (UserService) session.getAttribute("userService");
+
 //        从前端获取
         String user_id= request.getParameter("Recharge");
 
@@ -226,7 +230,6 @@ public class AdminController {
     @RequestMapping("/appointadmin")
     public ModelAndView appointadmin(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-        UserService userService = (UserService) session.getAttribute("userService");
 //        从前端获取
         String user_id= request.getParameter("Appoint");
 

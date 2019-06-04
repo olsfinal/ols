@@ -24,8 +24,13 @@ public class UserDao {
     public BeanUser getUser(String user_id)  {
         String sql ="select * from user_t where user_id = ?";
         RowMapper<BeanUser> rowMapper = new BeanPropertyRowMapper<BeanUser>(BeanUser.class);
-        BeanUser user = jdbcTemplate.queryForObject(sql,rowMapper,user_id);
-        return user;
+        try{
+            BeanUser user = jdbcTemplate.queryForObject(sql,rowMapper,user_id);
+            return user;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
 //    更新用户

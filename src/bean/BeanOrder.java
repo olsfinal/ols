@@ -6,9 +6,18 @@ public class BeanOrder {
     private int order_id;
     private Date o_time;
     private String user_id;
+    private String user_name;
     private String o_address;
     private String o_tel;
     private int o_state;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
 
     public int getOrder_id() {
         return order_id;

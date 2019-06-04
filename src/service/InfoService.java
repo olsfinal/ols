@@ -30,18 +30,17 @@ public class InfoService {
         }
     }
 
-    public Collection<BeanInfo> getInfos(String user_id) throws Exception{
+    public List<BeanInfo> getInfos(String user_id) throws Exception{
         try {
             List<BeanInfo> infos = infoDao.loadInfos(user_id);
             if(infos==null) throw new Exception("您还没有添加地址");
-            Collections.sort(infos);
             return infos;
         }catch (Exception e){
             throw new Exception("获取地址失败");
         }
     }
 
-    public BeanInfo getInfos(int info_id) throws Exception{
+    public BeanInfo getInfo(int info_id) throws Exception{
         try{
             return infoDao.loadInfoById(info_id);
         }catch (Exception e){
@@ -50,13 +49,7 @@ public class InfoService {
     }
 
     public void modifyInfo(BeanInfo info) throws Exception {
-        BeanInfo info1 = infoDao.loadInfoById(info.getInfo_id());
-        if(info1==null) throw new Exception("获取地址失败");
-        if(info.getUser_id()!=info1.getUser_id())info1.setUser_id(info.getUser_id());
-        if(info.getAddress()!=info1.getAddress())info1.setAddress(info.getAddress());
-        if(info.getI_name()!=info1.getI_name())info1.setI_name(info.getI_name());
-        if(info.getTel()!=info1.getTel())info1.setTel(info.getTel());
-        infoDao.updateInfo(info1);
+        infoDao.updateInfo(info);
     }
 
     public void deleteInfo(int info_id){
