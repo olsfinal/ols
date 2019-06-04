@@ -34,20 +34,21 @@
     </p>
     <table class="htable">
         <tr>
-            <th width="200px">数量</th>
-            <th width="200px">商品名称</th>
-            <th width="200px">商品价格</th>
-            <th width="200px">操作</th>
+            <th width="150px">数量</th>
+            <th width="150px">商品名称</th>
+            <th width="150px">商品价格</th>
+            <th width="350px">操作</th>
         </tr>
     </table>
     <div v-for="(item,index) of carts" class="mtable">
         <table>
             <tr>
-                <th width="200px">{{item.quantity}}</th>
-                <th width="200px">{{item.name}}</th>
-                <th width="200px">{{item.price}}</th>
-                <th width="200px">
+                <th width="150px">{{item.quantity}}</th>
+                <th width="150px">{{item.name}}</th>
+                <th width="150px">{{item.price}}</th>
+                <th width="350px">
                     <button @click="show_detail(item.id)">详情</button>
+                    <button @click="addc(item.id)">增加</button>
                     <button @click="delc(item.id)">减少</button>
                 </th>
             </tr>
@@ -103,6 +104,24 @@
                     })
 
             },
+            addc:function(iid){
+                var params = new Object();
+                params.c_id=iid;
+                axios.get('cartadd' , {params:params})
+                    .then(function (res) {
+                        console.log(res);
+                        if(res.data=="1"){
+                            location.href = "showcart";
+                        }
+                        else{
+                            alert(res.data);
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        alert(error);
+                    })
+
+            },
             delc:function(iid){
                 var params = new Object();
                 params.c_id=iid;
@@ -122,7 +141,15 @@
 
             },
             choseinfo:function () {
-                axios.get('infos' )
+                <%
+                    if(cart.getItems().isEmpty()){
+                %>  alert("购物车为空")
+                    return
+                <%
+
+                    }
+                %>
+                axios.get('infos')
                     .then(function (res) {
                         console.log(res);
                         location.href = "showchoseinfo";
