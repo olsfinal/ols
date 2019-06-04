@@ -120,7 +120,13 @@ public class OrderController {
             orderService.changeOrderStatus(order_id,state);
 //        加载所有订单
             List <BeanOrder> orders =orderService.loadOrdersByState(user_id,state);
-            request.getSession().setAttribute("ordersList",orders);
+            List<BeanOrder> bods=new ArrayList<>();
+            for(BeanOrder bod:orders) {
+                bod.setUser_name(userService.getUserDao().getUser(bod.getUser_id()).getUser_name());
+                bods.add(bod);
+            }
+            request.getSession().setAttribute("ordersList",bods);
+
             return "1";
         }
         catch (Exception e){
