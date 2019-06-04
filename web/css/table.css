@@ -1,0 +1,58 @@
+
+
+.htable{
+    font-family: "微软雅黑";
+    font-size:20px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+.htable th {
+    background: #878787;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+.htable td {
+    background:#dcddc0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+
+.mtable {
+    font-family: "宋体";
+    font-size:20px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+.mtable th {
+    background:#b5cfd2;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+.mtable td {
+    background:#dcddc0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #999999;
+}
+
+button{
+    font-family: "微软雅黑";
+    font-size: 20px;
+    font-weight:500;
+    border: 0.5em groove rgba(19, 135, 4, 0);
+    cursor: pointer;
+    background-color: rgba(19, 135, 4, 0.53);
+    height:40px;
+    width: 80px;
+}

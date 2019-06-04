@@ -1,6 +1,6 @@
 package bean;
 
-public class BeanInfo {
+public class BeanInfo implements Comparable {
     private int info_id;
     private String user_id;
     private String address;
@@ -45,5 +45,11 @@ public class BeanInfo {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public int compareTo(Object o) {
+        BeanInfo n = (BeanInfo) o;
+        int lastCmp = user_id.compareTo(n.user_id);
+        return (lastCmp);
     }
 }

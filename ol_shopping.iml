@@ -29,5 +29,7 @@
     <orderEntry type="library" name="Spring-4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Spring MVC-4.3.18.RELEASE" level="project" />
     <orderEntry type="module" module-name="ols_maven" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
   </component>
 </module>

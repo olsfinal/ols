@@ -4,10 +4,20 @@ import java.util.Date;
 
 public class BeanOrder {
     private int order_id;
-    private Date time;
+    private Date o_time;
     private String user_id;
+    private String user_name;
     private String o_address;
     private String o_tel;
+    private int o_state;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
 
     public int getOrder_id() {
         return order_id;
@@ -17,12 +27,12 @@ public class BeanOrder {
         this.order_id = order_id;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getO_time() {
+        return o_time;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setO_time(Date o_time) {
+        this.o_time = o_time;
     }
 
     public String getUser_id() {
@@ -47,5 +57,13 @@ public class BeanOrder {
 
     public void setO_tel(String o_tel) {
         this.o_tel = o_tel;
+    }
+
+    public int getO_state() {
+        return o_state;
+    }
+
+    public void setO_state(int o_state) {
+        this.o_state = o_state;
     }
 }

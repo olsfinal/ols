@@ -1,0 +1,115 @@
+login 登陆界面                                                           ------ login.jsp
+
+checklogin 用户登陆
+    成功则载入目录界面（index）
+    失败则重新加载登陆界面 弹出alert（失败提示）
+    从前端获取user_id、user_name
+
+    管理员登陆成功则进入(aindex)
+
+showregister 用户注册界面                                                 ------ register.jsp
+
+register 用户注册
+    从前端获取user_id,user_name,user_pwd,user_pwd2
+    成功则跳转至login 弹出alert（成功提示）
+    失败重新进入注册界面 弹出alert（错误提示）
+
+showmodifyuser 跳转至用户信息修改界面                                      ------ modifyuser.jsp
+
+modifyuser 用户信息修改（修改界面中点击button时）
+    重新跳转至showmodifyuser 弹出alert（成功/失败提示）（失败包括没有修改内容）
+    从前端获取user_id、user_name、user_pwd、user_pwd2 不需要修改则为空值
+
+index 目录界面（展示类别）                                                ------ index.jsp
+
+catalog 跳转至商品目录界面(全部或某一类)                                    ------ catalog.jsp
+    从前端传入类别属性c_type
+
+showcart 显示购物车                                                      ------ cart.jsp
+    包括在添加商品、删除商品时
+    从前端获取所要添加或删除的c_id，属性名分别为Remove、Add，并执行所添加删除功能
+
+commoditydetails  展示商品具体内容                                        ------ commoditydetails.jsp
+    在商品目录界面（catalog）中点击商品时
+    从前端获取c_id
+
+choseinfo 选择地址（在购物车showcart中点击付款按钮）                         ------ choseinfo.jsp
+
+cashier 付款（在choseinfo中点击选择地址按钮）
+    从前端传入info_id
+    成功则跳转至orders 弹出alert（成功提示）
+    失败则跳转至cart 弹出alert（失败提示）
+
+orders 显示订单                                                          ------ orders.jsp
+
+orderdetails 显示某订单的细节                                             ------ orderdetails.jsp
+    点击orders内的button触发
+    从前端返回order_id
+
+infos 显示当前用户的所有地址                                               ------ infos.jsp
+
+showaddinfos add地址界面                                                 ------ addinfos.jsp
+
+addinfos 添加地址
+    成功跳转至infos 弹出alert（成功提示）
+    失败跳转至addinfos 弹出alert（失败提示）
+    从前端获取 address、i_name、tel
+
+showupdateinfos 跳转至修改地址界面                                         ------ modifyinfos.jsp
+
+modifyinfos 修改地址
+    发现没有修改 重修跳转至修改地址界面 弹出alert（失败提示）
+    成功则跳转至infos
+
+removeinfos 删除地址
+    从前端传入所要删除的info_id 属性名为Remove
+
+
+requestrefund 申请退款（在oreders中点击申请退款button）
+    从前端传入order_id
+    重新跳转至orders
+
+
+------------------------------------------------------------------------------
+管理员部分
+------------------------------------------------------------------------------
+
+aindex 管理员主目录                                                      ------ aindex.jsp
+
+checkrefund 退款界面                                                     ------ checkrefund.jsp
+
+
+confirmrefund 确认/拒绝 退款
+    从前端传入order_id,o_state（退款成功/退款被拒）
+
+commoditys 显示所有商品                                                   ------ commoditys.jsp
+
+showaddcommoditys add商品界面                                             ------ addcommoditys.jsp
+
+addcommoditys 添加商品
+    成功跳转至commoditys 弹出alert（成功提示）
+    失败跳转至addcommoditys 弹出alert（失败提示）
+    从前端获取 商品信息
+
+showupdatecommoditys 跳转至修改商品界面                                    ------ modifyicommoditys.jsp
+
+modifycommoditys 修改商品
+    发现没有修改 重修跳转至修改商品界面 弹出alert（失败提示）
+    成功则跳转至commoditys
+
+removecommoditys 删除商品
+    从前端传入所要删除的c_id 属性名为Remove
+
+users 显示所有用户                                                         ------ users.jsp
+
+rechargeuser 重置用户密码
+    从前端传入user_id 属性名为Recharge
+    重置为123456
+
+appointadmin 提升用户为管理员
+    从前端传入user_id 属性名为Appoint
+
+
+
+
+

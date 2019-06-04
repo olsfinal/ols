@@ -34,27 +34,28 @@ public class InfoDao {
         RowMapper<BeanInfo> rowMapper = new BeanPropertyRowMapper<BeanInfo>(BeanInfo.class);
         return jdbcTemplate.query(sql,rowMapper);
     }
-
-//    更新地址
-    public void updateInfo(BeanInfo beanInfo) throws Exception {
-        try {
-
-            String sql = "update info_t set address = ? , i_name = ? , tel = ? where getInfo_id = ?";
-            jdbcTemplate.update(sql,beanInfo.getAddress,beanInfo.getI_name,beanInfo.getTel,beanInfo.getInfo_id);
-
-        } catch (Exception ex) {
-            throw new Exception("updateUser failed");
+//    按id获取地址
+    public BeanInfo loadInfoById(int info_id){
+        try{
+            String sql = "select * from info_t where info_id = ?";
+            RowMapper<BeanInfo> rowMapper = new BeanPropertyRowMapper<BeanInfo>(BeanInfo.class);
+            return jdbcTemplate.queryForObject(sql,rowMapper,info_id);
+        }
+        catch (Exception e){
+            return null;
         }
     }
+
+//    更新地址
+    public void updateInfo(BeanInfo beanInfo) {
+
+        String sql = "update info_t set address = ? , i_name = ? , tel = ? where info_id = ?";
+        jdbcTemplate.update(sql,beanInfo.getAddress(),beanInfo.getI_name(),beanInfo.getTel(),beanInfo.getInfo_id());
+
+    }
 //    删除地址
-    public void delInfo(BeanInfo beanInfo) throws Exception {
-        try {
-
-            String sql = "update info_t set address = ? , i_name = ? , tel = ? where getInfo_id = ?";
-            jdbcTemplate.update(sql,beanInfo.getAddress,beanInfo.getI_name,beanInfo.getTel,beanInfo.getInfo_id);
-
-        } catch (Exception ex) {
-            throw new Exception("updateUser failed");
-        }
+    public void delInfo(int info_id) {
+        String sql = "delete from info_t where info_id = ?";
+        jdbcTemplate.update(sql,info_id);
     }
 }
