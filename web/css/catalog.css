@@ -22,6 +22,7 @@
     border-radius: 20px;
     text-align:center;
     line-height: 125px;
+    cursor: pointer;
 }
 .catalog_class strong{
     text-align:left;

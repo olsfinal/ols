@@ -28,7 +28,7 @@
 <div id="orders_root" style="margin-left: 250px;">
     <br>
     <p style="font-family: '华文隶书'; font-size:50px;">
-        &nbsp;&nbsp;我的订单({{pagename}})
+        我的订单({{pagename}})
     </p>
     <br>
     <br>

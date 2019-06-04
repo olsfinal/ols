@@ -26,11 +26,12 @@
 <%@include file="left.jsp" %>
 
 <%--主要部分--%>
-<br>
-<p style="font-family: '华文隶书'; font-size:50px;">
-    &nbsp;&nbsp;我的购物车
-</p>
+
 <div id="cart_root" style="margin-left: 250px;">
+    <br>
+    <p style="font-family: '华文隶书'; font-size:50px;">
+        我的购物车
+    </p>
     <table class="htable">
         <tr>
             <th width="200px">数量</th>

@@ -19,16 +19,18 @@
 
 <!-- 主要部分 -->
 <div id="catalog_root">
-    <div v-for="(item,index) of commoditys" class="catalog_class" >
-        <img :src="item.img">
-        <strong>￥{{item.price}}</strong><br>
-        <span>{{item.name}}</span>
-        <br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button @click="chose_c(item.id)" style="font-family: '宋体';font-size: 22px;
-            font-weight:500;color: white; border: 0.5em groove rgba(19, 135, 4, 0);cursor: pointer;
-            background-color: rgba(255,7,3,0.78);height:40px;width: 150px;">
-            加入购物车
-        </button>
+    <div style="margin-left: 250px;">
+        <div v-for="(item,index) of commoditys" class="catalog_class" >
+            <img :src="item.img" @click="show_c(item.id)">
+            <strong>￥{{item.price}}</strong><br>
+            <span>{{item.name}}</span>
+            <br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button @click="chose_c(item.id)" style="font-family: '宋体';font-size: 22px;
+                font-weight:500;color: white; border: 0.5em groove rgba(19, 135, 4, 0);cursor: pointer;
+                background-color: rgba(255,7,3,0.78);height:40px;width: 150px;">
+                加入购物车
+            </button>
+        </div>
     </div>
 </div>
 <script>
@@ -37,7 +39,40 @@
         data:{
             commoditys:[]
         },
+        mounted:function () {
+            <%
+            List<BeanCommodity> bcs= (List<BeanCommodity>) session.getAttribute("commoditys");
+            for(BeanCommodity bc:bcs){
+		    %>
+            var bc = new Object();
+            bc.id=<%=bc.getC_id() %>;
+            bc.price=<%=bc.getC_price() %>;
+            bc.name="<%=bc.getC_name() %>";
+            bc.img="<%=bc.getC_img() %>";
+            this.commoditys.push(bc);
+            <%
+                }
+            %>
+        },
         methods:{
+            show_c :function(cid){
+                var params = new Object();
+                params.c_id=cid;
+                axios.get('commoditydetails' , {params:params})
+                    .then(function (res) {
+                        console.log(res);
+                        if(res.data=="1"){
+                            location.href = "showcdetails";
+                        }
+                        else{
+                            alert(res.data);
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        alert(error);
+                    })
+            },
+
             chose_c :function(cid) {
                 <%
                     ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
@@ -61,23 +96,9 @@
                     .catch(function (error) { // 请求失败处理
                         alert(error);
                     })
-            }
+            },
         },
-        mounted:function () {
-            <%
-            List<BeanCommodity> bcs= (List<BeanCommodity>) session.getAttribute("commoditys");
-            for(BeanCommodity bc:bcs){
-		    %>
-                var bc = new Object();
-                bc.id=<%=bc.getC_id() %>;
-                bc.price=<%=bc.getC_price() %>;
-                bc.name="<%=bc.getC_name() %>";
-                bc.img="<%=bc.getC_img() %>";
-                this.commoditys.push(bc);
-            <%
-                }
-            %>
-        }
+
 
 
     })
