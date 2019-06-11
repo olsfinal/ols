@@ -65,12 +65,14 @@ public class InfoController {
     public Object AddInfos(HttpServletRequest req, HttpServletResponse resq) throws Exception{
         HttpServletRequest request = (HttpServletRequest)req;
         HttpSession session = request.getSession();
-
+        System.out.println(request.getContextPath());
         String user_id= (String) session.getAttribute("user_id");
 
         String address =  request.getParameter("address");
         String i_name =  request.getParameter("i_name");
         String tel =  request.getParameter("tel");
+
+        String caller = (String) session.getAttribute("caller");
         if(address.equals("") || i_name.equals("") || tel.equals("")){
             return "所有项都不得为空";
         }
@@ -85,6 +87,9 @@ public class InfoController {
                 infoService.addInfo(info);
                 List<BeanInfo> infos = (List<BeanInfo>) infoService.getInfos(user_id);
                 request.getSession().setAttribute("infosList",infos);
+                if(!caller.isEmpty()&&caller.equals("choseinfo")){
+                    return "2";
+                }
                 return "1";
             }
             catch (Exception e){

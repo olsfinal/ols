@@ -25,11 +25,12 @@
 
 <%--主要部分--%>
 <br>
-<p style="font-family: '华文隶书'; font-size:50px;">
-    &nbsp;&nbsp;我的地址
-</p>
+
 <div id="choseinfo_root" style="margin-left: 250px;">
     <br>
+    <p style="font-family: '华文隶书'; font-size:50px;">
+        &nbsp;&nbsp;我的地址
+    </p>
     <table class="htable">
         <tr>
             <th width="120px">姓名</th>
@@ -50,6 +51,9 @@
             </tr>
         </table>
     </div>
+    <br>
+    <br>
+    <button @click="addinfo()">新增</button>
 </div>
 <script>
     new Vue({
@@ -106,6 +110,11 @@
                     .catch(function (error) { // 请求失败处理
                         alert(error);
                     })
+
+            },
+            addinfo:function () {
+                <%session.setAttribute("caller","choseinfo");%>
+                location.href = "showaddinfos";
 
             },
         },

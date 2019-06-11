@@ -170,9 +170,9 @@ public class BuyController {
 //        从前端获取info_id
         int info_id= Integer.parseInt(request.getParameter("info_id"));
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ShoppingCart();
-            session.setAttribute("cart", cart);
+        if (cart.getItems().isEmpty()) {
+//            cart = new ShoppingCart();
+//            session.setAttribute("cart", cart);
             return "购物车为空";
         }
         String user_id= (String) session.getAttribute("user_id");
