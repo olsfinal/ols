@@ -23,38 +23,40 @@
 
 <%--主要部分--%>
 <div id="root">
-    <div class="index_class" style="background-color:#666666;
+    <div style="margin-left: 250px;">
+        <div class="index_class" style="background-color:#666666;
                                             height: 615px;" @click="chose_com(1)">
-        <p>所<br>有<br>商<br>品</p>
-    </div>
+            <p>所<br>有<br>商<br>品</p>
+        </div>
 
-    <div class="index_class" style="background-color:#FF9900;" @click="chose_com(2)">
-        <p>类型2</p>
-    </div>
+        <div class="index_class" style="background-color:#FF9900;" @click="chose_com(2)">
+            <p>类型2</p>
+        </div>
 
-    <div class="index_class" style="background-color:#FF6666;
+        <div class="index_class" style="background-color:#FF6666;
                                             width: 629px;" @click="chose_com(3)">
-        <p>热&nbsp;卖&nbsp;商&nbsp;品</p>
-    </div>
+            <p>热&nbsp;卖&nbsp;商&nbsp;品</p>
+        </div>
 
-    <div class="index_class" style="background-color:#99CC66;" @click="chose_com(4)">
-        <p>类型4</p>
-    </div>
+        <div class="index_class" style="background-color:#99CC66;" @click="chose_com(4)">
+            <p>类型4</p>
+        </div>
 
-    <div class="index_class" style="background-color:#0066CC;" @click="chose_com(5)">
-        <p>类型5</p>
-    </div>
+        <div class="index_class" style="background-color:#0066CC;" @click="chose_com(5)">
+            <p>类型5</p>
+        </div>
 
-    <div class="index_class" style="background-color:#FF0033;" @click="chose_com(6)">
-        <p>类型6</p>
-    </div>
+        <div class="index_class" style="background-color:#FF0033;" @click="chose_com(6)">
+            <p>类型6</p>
+        </div>
 
-    <div class="index_class" style="background-color:#0099CC;" @click="chose_com(7)">
-        <p>类型7</p>
-    </div>
+        <div class="index_class" style="background-color:#0099CC;" @click="chose_com(7)">
+            <p>类型7</p>
+        </div>
 
-    <div class="index_class" style="background-color:#CCCC99;" @click="chose_com(8)">
-        <p>类型8</p>
+        <div class="index_class" style="background-color:#CCCC99;" @click="chose_com(8)">
+            <p>类型8</p>
+        </div>
     </div>
 </div>
 <script>

@@ -1,6 +1,6 @@
-/*html{*/
-  /*height:100%*/
-/*}*/
+html{
+  height:100%
+}
 body{
   margin-top: 0;
   margin-left: 0;
@@ -8,6 +8,7 @@ body{
   height:100%;
 }
 #myleft{
+  position:fixed;
   font-family:Courier New;
   font-size:1.5em;
   color:  #fff;
@@ -26,6 +27,7 @@ body{
   list-style: none;
   padding: 0;
 }
+
 #myleft ul li{
   color: #fff;
   background: #34495e;
@@ -36,6 +38,7 @@ body{
   cursor: pointer;
   transition: 0.4s all;
 }
+
 /* 鼠标靠近时的变化效果 */
 #myleft ul li:hover{
   background: #263444;

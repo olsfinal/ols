@@ -24,11 +24,12 @@
 <%@include file="left.jsp" %>
 
 <%--主要部分--%>
-<br>
-<p style="font-family: '华文隶书'; font-size:50px;">
-    &nbsp;&nbsp;我的地址
-</p>
+
 <div id="infos_root" style="margin-left: 250px;">
+    <br>
+    <p style="font-family: '华文隶书'; font-size:50px;">
+        我的地址
+    </p>
     <button @click="addi()">新增</button>
     <br>
     <br>

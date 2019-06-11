@@ -30,7 +30,7 @@ public class OrderController {
     @Resource(name = "userService")
     private UserService userService;
 
-//    post订单类型
+//    订单类型
     @RequestMapping(value="/orders",produces="text/plain;charset=UTF-8")
     @ResponseBody
     public Object Orders(HttpServletRequest req, HttpServletResponse resq) throws Exception{

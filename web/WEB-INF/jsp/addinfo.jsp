@@ -79,6 +79,10 @@
                             alert("新增成功");
                             location.href = "showinfos";
                         }
+                        else if(res.data=="2"){
+                            alert("新增成功");
+                            location.href = "showchoseinfo";
+                        }
                         else{
                             alert(res.data);
                         }

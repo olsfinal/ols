@@ -20,6 +20,9 @@ public class OrderService {
     @Resource(name = "infoDao")
     private InfoDao infoDao;
 
+    @Resource(name = "userDao")
+    private UserDao userDao;
+
     public OrderDao getOrderDao() {
         return orderDao;
     }
@@ -34,6 +37,14 @@ public class OrderService {
 
     public void setInfoDao(InfoDao infoDao) {
         this.infoDao = infoDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     //    生成订单，返回order_id
@@ -65,7 +76,11 @@ public class OrderService {
     }
     //  返回某用户所有订单
     public List<BeanOrder> loadOrders(String user_id) throws Exception{
-        return orderDao.findAllOrder(user_id);
+        List<BeanOrder> orders = orderDao.findAllOrder(user_id);
+        for(BeanOrder order:orders){
+            order.setUser_name(userDao.getUser(order.getUser_id()).getUser_name());
+        }
+        return orders;
     }
     //  返回某订单所有订单细节
     public List<BeanOrderdetail> loadOrderDetails(int order_id) throws Exception{
@@ -81,10 +96,18 @@ public class OrderService {
 
     //  根据状态返回订单
     public List<BeanOrder> loadOrdersByState(int o_state){
-        return orderDao.findOrderByState(o_state);
+        List<BeanOrder> orders = orderDao.findOrderByState(o_state);
+        for(BeanOrder order:orders){
+            order.setUser_name(userDao.getUser(order.getUser_id()).getUser_name());
+        }
+        return orders;
     }
     //  根据用户和状态
     public List<BeanOrder> loadOrdersByState(String userid,int o_state){
-        return orderDao.findOrderByState(userid,o_state);
+        List<BeanOrder> orders = orderDao.findOrderByState(userid,o_state);
+        for(BeanOrder order:orders){
+            order.setUser_name(userDao.getUser(order.getUser_id()).getUser_name());
+        }
+        return orders;
     }
 }
