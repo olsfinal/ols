@@ -32,31 +32,45 @@
     <p style="font-family: '华文隶书'; font-size:50px;">
         我的购物车
     </p>
-    <table class="htable">
+    <table class="altrowstable">
         <tr>
             <th width="150px">数量</th>
             <th width="150px">商品名称</th>
             <th width="150px">商品价格</th>
-            <th width="350px">操作</th>
+            <th width="400px">操作</th>
         </tr>
     </table>
-    <div v-for="(item,index) of carts" class="mtable">
-        <table>
-            <tr>
-                <th width="150px">{{item.quantity}}</th>
-                <th width="150px">{{item.name}}</th>
-                <th width="150px">{{item.price}}</th>
-                <th width="350px">
-                    <button @click="show_detail(item.id)">详情</button>
-                    <button @click="addc(item.id)">增加</button>
-                    <button @click="delc(item.id)">减少</button>
-                </th>
+    <div v-for="(item,index) of carts" >
+        <table class="altrowstable">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="150px">{{item.quantity}}</td>
+                <td width="150px">{{item.name}}</td>
+                <td width="150px">{{item.price}}</td>
+                <td width="400px">
+                    <button class="button1" @click="show_detail(item.id)">详情</button>
+                    <button class="button1" @click="addc(item.id)">增加</button>
+                    <button class="button1" @click="delc(item.id)">减少</button>
+                </td>
             </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="150px">{{item.quantity}}</td>
+                <td width="150px">{{item.name}}</td>
+                <td width="150px">{{item.price}}</td>
+                <td width="400px">
+                    <button class="button1" @click="show_detail(item.id)">详情</button>
+                    <button class="button1" @click="addc(item.id)">增加</button>
+                    <button class="button1" @click="delc(item.id)">减少</button>
+                </td>
+            </tr>
+
         </table>
     </div>
     <br>
     <br>
-    <button @click="choseinfo()">付款</button>
+    <p>
+        <button class="button2"  @click="choseinfo()">付款</button>
+    </p>
+
 </div>
 <script>
     new Vue({

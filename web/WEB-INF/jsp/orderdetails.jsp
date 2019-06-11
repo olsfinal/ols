@@ -33,28 +33,56 @@
     </p>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable" width="800px">
         <tr>
-            <th width="103px">商品名称</th>
-            <th width="203px">数量</th>
-            <th width="203px">价格</th>
-            <th width="153px">操作</th>
+            <th width="30%">商品名称</th>
+            <th width="20%">数量</th>
+            <th width="20%">价格</th>
+            <th width="30%">操作</th>
         </tr>
     </table>
-    <div v-for="(item,index) of orderdetails" class="mtable">
-        <table>
-            <tr>
-                <th width="100px">{{item.name}}</th>
-                <th width="200px">{{item.number}}</th>
-                <th width="200px">{{item.price}}</th>
-                <th width="150px">
-                    <button @click="cdetails(item.cid)" style="width: 120px">商品详情</button>
-                </th>
+    <div v-for="(item,index) of orderdetails" >
+        <table  class="altrowstable" id="alternatecolor" width="800px">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="30%">{{item.name}}</td>
+                <td width="20%">{{item.number}}</td>
+                <td width="20%">{{item.price}}</td>
+                <td width="30%">
+                    <button class="button"  @click="cdetails(item.cid)" style="width:100%">商品详情</button>
+                </td>
+            </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="30%">{{item.name}}</td>
+                <td width="20%">{{item.number}}</td>
+                <td width="20%">{{item.price}}</td>
+                <td width="30%">
+                    <button class="button" @click="cdetails(item.cid)" style="width:100%">商品详情</button>
+                </td>
             </tr>
         </table>
     </div>
 </div>
 <script>
+    function altRows(id){
+        if(document.getElementsByTagName){
+
+            var table = document.getElementById(id);
+            var rows = table.getElementsByTagName("tr");
+
+            for(i = 0; i < rows.length; i++){
+                if(i % 2 == 0){
+                    rows[i].className = "evenrowcolor";
+                }else{
+                    rows[i].className = "oddrowcolor";
+                }
+            }
+        }
+    }
+
+    window.onload=function(){
+        altRows('alternatecolor');
+    }
+
     new Vue({
         el:"#orderdetails_root",
         data:{

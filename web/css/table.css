@@ -46,13 +46,63 @@
     border-color: #999999;
 }
 
-button{
+.button{
+     font-family: "微软雅黑";
+     font-size: 20px;
+     font-weight:500;
+     border: 0.5em groove rgba(19, 135, 4, 0);
+     cursor: pointer;
+     background-color: rgba(19, 135, 4, 0.53);
+     height:50px;
+     width: 100%;
+ }
+
+.button1{
     font-family: "微软雅黑";
-    font-size: 20px;
+    font-size: 15px;
     font-weight:500;
     border: 0.5em groove rgba(19, 135, 4, 0);
     cursor: pointer;
     background-color: rgba(19, 135, 4, 0.53);
-    height:40px;
-    width: 80px;
+    height:50px;
+    width: 30%;
+}
+
+.button2{
+    font-family: "微软雅黑";
+    font-size: 15px;
+    font-weight:500;
+    border: 0.5em groove rgba(19, 135, 4, 0);
+    cursor: pointer;
+    background-color: rgba(19, 135, 4, 0.53);
+    height:50px;
+    width: 150px;
+}
+
+table.altrowstable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    border-collapse: collapse;
+}
+table.altrowstable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+    background-color:#6FB7B7;
+}
+table.altrowstable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+.oddrowcolor td{
+    background-color:#d4e3e5;
+}
+.evenrowcolor td{
+    background-color:#c3dde0;
 }

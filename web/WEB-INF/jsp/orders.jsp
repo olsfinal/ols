@@ -32,31 +32,44 @@
     </p>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable" width="1250px">
         <tr>
-            <th width="103px">订单号</th>
-            <th width="203px">订单时间</th>
-            <th width="103px">收货人</th>
-            <th width="203px">地址</th>
-            <th width="123px">电话</th>
-            <th width="103px">订单状态</th>
-            <th width="283px">操作</th>
+            <th width="10%">订单号</th>
+            <th width="20%">订单时间</th>
+            <th width="10%">收货人</th>
+            <th width="20%">地址</th>
+            <th width="12%">电话</th>
+            <th width="10%">订单状态</th>
+            <th width="28%">操作</th>
         </tr>
     </table>
-    <div v-for="(item,index) of orders" class="mtable">
-        <table>
-            <tr>
-                <th width="100px">{{item.id}}</th>
-                <th width="200px">{{item.time}}</th>
-                <th width="100px">{{item.name}}</th>
-                <th width="200px">{{item.address}}</th>
-                <th width="120px">{{item.tel}}</th>
-                <th width="100px">{{item.state}}</th>
-                <th width="280px">
-                    <button v-show="item.show" @click="drawback(item.id)">退款</button>
-                    <button v-show="item.show" @click="confimget(item.id)">收货</button>
-                    <button @click="orderdetail(item.id)">详情</button>
-                </th>
+    <div v-for="(item,index) of orders">
+        <table  class="altrowstable" id="alternatecolor" width="1250px">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="10%">{{item.id}}</td>
+                <td width="20%">{{item.time}}</td>
+                <td width="10%">{{item.name}}</td>
+                <td width="20%">{{item.address}}</td>
+                <td width="12%">{{item.tel}}</td>
+                <td width="10%">{{item.state}}</td>
+                <td width="28%">
+                    <button class="button1" v-show="item.show" @click="drawback(item.id)">退款</button>
+                    <button class="button1" v-show="item.show" @click="confimget(item.id)">收货</button>
+                    <button class="button1" @click="orderdetail(item.id)">详情</button>
+                </td>
+            </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="10%">{{item.id}}</td>
+                <td width="20%">{{item.time}}</td>
+                <td width="10%">{{item.name}}</td>
+                <td width="20%">{{item.address}}</td>
+                <td width="12%">{{item.tel}}</td>
+                <td width="10%">{{item.state}}</td>
+                <td width="28%">
+                    <button class="button1" v-show="item.show" @click="drawback(item.id)">退款</button>
+                    <button class="button1" v-show="item.show" @click="confimget(item.id)">收货</button>
+                    <button class="button1" @click="orderdetail(item.id)">详情</button>
+                </td>
             </tr>
         </table>
     </div>
@@ -64,6 +77,7 @@
 <script>
     new Vue({
         el:"#orders_root",
+
         data:{
             pagename:"所有订单",
             orders:[],
@@ -101,8 +115,7 @@
             <%
             }
             %>
-
-
+            // altRows('alternatecolor');
         },
 
 
@@ -164,7 +177,7 @@
 
             },
         },
-
+        // template:"#orders_main",
 
     })
 </script>
