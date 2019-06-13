@@ -19,15 +19,20 @@
 
 <!-- 主要部分 -->
 <div id="catalog_root">
+    <div style="margin-left: 270px;" class="finddiv">
+        <br>
+        <input v-model="inputtext" type="text">
+        <button @click="gofind()">搜索</button>
+        <br>
+        <br>
+    </div>
     <div style="margin-left: 250px;">
         <div v-for="(item,index) of commoditys" class="catalog_class" >
             <img :src="item.img" @click="show_c(item.id)">
             <strong>￥{{item.price}}</strong><br>
             <span>{{item.name}}</span>
             <br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button @click="chose_c(item.id)" style="font-family: '宋体';font-size: 22px;
-                font-weight:500;color: white; border: 0.5em groove rgba(19, 135, 4, 0);cursor: pointer;
-                background-color: rgba(255,7,3,0.78);height:40px;width: 150px;">
+            <button @click="chose_c(item.id)" >
                 加入购物车
             </button>
         </div>
@@ -48,7 +53,7 @@
             bc.id=<%=bc.getC_id() %>;
             bc.price=<%=bc.getC_price() %>;
             bc.name="<%=bc.getC_name() %>";
-            bc.img="<%=bc.getC_img() %>";
+            bc.img="pic/"+"<%=bc.getC_img() %>";
             this.commoditys.push(bc);
             <%
                 }

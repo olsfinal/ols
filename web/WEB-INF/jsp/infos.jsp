@@ -30,7 +30,7 @@
     <p style="font-family: '华文隶书'; font-size:50px;">
         我的地址
     </p>
-    <button @click="addi()">新增</button>
+    <button @click="addi()"><span>新增</span></button>
     <br>
     <br>
     <table class="htable">
@@ -48,8 +48,8 @@
                 <th width="400px">{{item.address}}</th>
                 <th width="300px">{{item.tel}}</th>
                 <th width="200px">
-                    <button @click="modifyi(item.id)">修改</button>
-                    <button @click="deli(item.id)">删除</button>
+                    <button @click="modifyi(item.id)"><span>修改</span></button>
+                    <button @click="deli(item.id)"><span>删除</span></button>
                 </th>
             </tr>
         </table>

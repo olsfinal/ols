@@ -54,8 +54,9 @@
     </div>
     <div class="you_need_konw">
         <span>详细介绍</span>
-        <div class="notice">
-            <p>{{commodity.detail}}</p>
+        <div v-for="(item,index) of details" class="notice" >
+            <p>•&nbsp;&nbsp;&nbsp;&nbsp;{{item}}</p>
+            <br>
         </div>
     </div>
 </div>
@@ -64,6 +65,7 @@
         el:"#cdroot",
         data:{
             commodity:Object,
+            details:[],
         },
         //初始化
         mounted:function () {
@@ -75,8 +77,9 @@
             commodity.name="<%=bc.getC_name()%>";
             commodity.price="<%=bc.getC_price()%>";
             commodity.inventory=<%=bc.getC_inventory()%>;
-            commodity.img="<%=bc.getC_img()%>";
+            commodity.img="pic/"+"<%=bc.getC_img()%>";
             commodity.detail="<%=bc.getC_detail()%>";
+            this.details=commodity.detail.split(",");
             this.commodity=commodity;
         },
 

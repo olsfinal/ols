@@ -37,7 +37,7 @@ public class OrderController {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpSession session = request.getSession();
         try{
-            String user_id= (String) session.getAttribute("user_id");
+            String user_id = (String) session.getAttribute("user_id");
             session.setAttribute("pageid",request.getParameter("o_state"));
             List<BeanOrder> orders;
             //      加载所有订单

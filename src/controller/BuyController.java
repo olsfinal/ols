@@ -21,6 +21,9 @@ public class BuyController {
     @Resource(name = "commodityService")
     private CommodityService commodityService;
 
+    @Resource(name = "orderService")
+    private OrderService orderService;
+
 //      类别目录
     @RequestMapping("/index")
     public ModelAndView ShowIndex(HttpServletRequest request, HttpServletResponse resq) throws Exception{
@@ -39,22 +42,38 @@ public class BuyController {
 
 //        获取选择的类别
         int index = Integer.parseInt(request.getParameter("c_type"));
-//        ArrayList<String> list= new ArrayList<>();
-////        添加类型
-//        list.add("all");list.add("type1");list.add("hot");list.add("type2");
-//        String c_type=list.get(index-1);
-        String c_type;
-        if (index==0) {
-            c_type="all";
+        String c_type="";
+        if (index==1) {
+            c_type="all";       //所有
         }
-        else{
-            c_type="1";
+        else if (index==2){
+            c_type="1";         //男装
+        }
+        else if (index==3){
+            c_type="hot";       //热销
+        }
+        else if (index==4){
+            c_type="2";         //女装
+        }
+        else if (index==5){
+            c_type="3";         //箱包
+        }
+        else if (index==6){
+            c_type="4";         //鞋靴
         }
         try {
             List<BeanCommodity> commoditys = commodityService.getCommoditys();
 //            选择全部商品c_type则为all
             if (c_type.equals("all")){
                 session.setAttribute("commoditys", commoditys);
+            }
+            else if(c_type.equals("hot")){
+                List<BeanCommodity> ncs= new ArrayList<>();
+                List<Integer> cids=orderService.hotOrderDetails();
+                for(Integer cid :cids){
+                    ncs.add(commodityService.getCommodity(cid));
+                }
+                session.setAttribute("commoditys", ncs);
             }
             else {
                 List<BeanCommodity> ncs= new ArrayList<>();

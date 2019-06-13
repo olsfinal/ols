@@ -19,6 +19,7 @@
   }
 .catalog_class img{
     width: 300px;
+    height: 300px;
     border-radius: 20px;
     text-align:center;
     line-height: 125px;
@@ -35,10 +36,52 @@
 .catalog_class span{
     text-align:left;
     position:absolute;
-    bottom:60px;
+    top:370px;
     left: 30px;
     right: 30px;
     font-size: 0.75em;
     color: #000000;
 }
+.catalog_class button {
+    background-color: #ed2d22; /* Green */
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px ;
+}
 
+.catalog_class button:hover {background-color: #e93011
+}
+
+.catalog_class button:active {
+    background-color: #e93011;
+    box-shadow: 0 5px #e93011;
+    transform: translateY(4px);
+}
+
+.finddiv button {
+    display: inline-block;
+    padding: 2px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px #999;
+}
+
+.finddiv button:hover {background-color: #3e8e41}
+
+.finddiv button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

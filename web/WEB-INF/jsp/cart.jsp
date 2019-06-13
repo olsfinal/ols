@@ -47,16 +47,16 @@
                 <th width="150px">{{item.name}}</th>
                 <th width="150px">{{item.price}}</th>
                 <th width="350px">
-                    <button @click="show_detail(item.id)">详情</button>
-                    <button @click="addc(item.id)">增加</button>
-                    <button @click="delc(item.id)">减少</button>
+                    <button @click="show_detail(item.id)"><span>详情</span></button>
+                    <button @click="addc(item.id)"><span>增加</span></button>
+                    <button @click="delc(item.id)"><span>减少</span></button>
                 </th>
             </tr>
         </table>
     </div>
     <br>
     <br>
-    <button @click="choseinfo()">付款</button>
+    <button @click="choseinfo()" ><span>付款</span></button>
 </div>
 <script>
     new Vue({

@@ -95,8 +95,9 @@
     border-bottom: 3px solid #ffc900;
 }
 .notice {
-    border: solid 1px #ddd;
-    padding: 35px 48px;
+    border-left: solid 1px #ddd;
+    border-right: solid 1px #ddd;
+    padding: 0px 48px;
 }
 .notice p {
     line-height: 24px;

@@ -30,32 +30,31 @@
         </div>
 
         <div class="index_class" style="background-color:#FF9900;" @click="chose_com(2)">
-            <p>类型2</p>
+            <p>男装</p>
         </div>
 
-        <div class="index_class" style="background-color:#FF6666;
-                                            width: 629px;" @click="chose_com(3)">
+        <div class="index_class" id="hot_class" style="background-color:#FF6666;" @click="chose_com(3)">
             <p>热&nbsp;卖&nbsp;商&nbsp;品</p>
         </div>
 
         <div class="index_class" style="background-color:#99CC66;" @click="chose_com(4)">
-            <p>类型4</p>
+            <p>女装</p>
         </div>
 
         <div class="index_class" style="background-color:#0066CC;" @click="chose_com(5)">
-            <p>类型5</p>
+            <p>箱包</p>
         </div>
 
         <div class="index_class" style="background-color:#FF0033;" @click="chose_com(6)">
-            <p>类型6</p>
+            <p>鞋靴</p>
         </div>
 
         <div class="index_class" style="background-color:#0099CC;" @click="chose_com(7)">
-            <p>类型7</p>
+            <p>类型1</p>
         </div>
 
         <div class="index_class" style="background-color:#CCCC99;" @click="chose_com(8)">
-            <p>类型8</p>
+            <p>类型2</p>
         </div>
     </div>
 </div>
@@ -68,7 +67,7 @@
         methods:{
             chose_com:function(index){
                 var params = new Object();
-                params.c_type = 0;
+                params.c_type = index;
                 console.log(params);
                 axios.get('catalog' , {params:params})
                     .then(function (res) {

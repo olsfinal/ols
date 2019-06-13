@@ -48,7 +48,7 @@
                 <th width="200px">{{item.number}}</th>
                 <th width="200px">{{item.price}}</th>
                 <th width="150px">
-                    <button @click="cdetails(item.cid)" style="width: 120px">商品详情</button>
+                    <button @click="cdetails(item.cid)" style="width: 120px"><span>商品详情</span></button>
                 </th>
             </tr>
         </table>
@@ -65,9 +65,6 @@
             <%
             List<BeanOrderdetail> bods= (List<BeanOrderdetail>) session.getAttribute("orderdetailsList");
             for(BeanOrderdetail bod:bods){
-                System.out.println(bod.getC_id());
-                System.out.println(bod.getOd_number());
-                System.out.println(bod.getC_name());
 		    %>
                 var bod = new Object();
                 bod.cid=<%=bod.getC_id() %>;
