@@ -30,10 +30,10 @@
     <p style="font-family: '华文隶书'; font-size:50px;">
         我的地址
     </p>
-    <button class="button2" @click="addi()">新增</button>
+    <button class="button2" @click="addi()"><span>新增</span></button>
     <br>
     <br>
-    <table class="altrowstable">
+    <table class="htable">
         <tr>
             <th width="120px">姓名</th>
             <th width="400px">地址</th>
@@ -48,8 +48,8 @@
                 <td width="400px">{{item.address}}</td>
                 <td width="300px">{{item.tel}}</td>
                 <td width="200px">
-                    <button class="button1" @click="modifyi(item.id)">修改</button>
-                    <button class="button1" @click="deli(item.id)">删除</button>
+                    <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
+                    <button class="button1" @click="deli(item.id)"><span>删除</span></button>
                 </td>
             </tr>
             <tr v-if="index%2==1" class="evenrowcolor">
@@ -57,8 +57,8 @@
                 <td width="400px">{{item.address}}</td>
                 <td width="300px">{{item.tel}}</td>
                 <td width="200px">
-                    <button class="button1" @click="modifyi(item.id)">修改</button>
-                    <button class="button1" @click="deli(item.id)">删除</button>
+                    <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
+                    <button class="button1" @click="deli(item.id)"><span>删除</span></button>
                 </td>
             </tr>
         </table>

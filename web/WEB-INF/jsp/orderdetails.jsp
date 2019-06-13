@@ -33,7 +33,7 @@
     </p>
     <br>
     <br>
-    <table class="altrowstable" width="800px">
+    <table class="htable">
         <tr>
             <th width="30%">商品名称</th>
             <th width="20%">数量</th>
@@ -48,7 +48,7 @@
                 <td width="20%">{{item.number}}</td>
                 <td width="20%">{{item.price}}</td>
                 <td width="30%">
-                    <button class="button"  @click="cdetails(item.cid)" style="width:100%">商品详情</button>
+                    <button class="button"  @click="cdetails(item.cid)" style="width:100%"><span>商品详情</span></button>
                 </td>
             </tr>
             <tr v-if="index%2==1" class="evenrowcolor">
@@ -56,33 +56,13 @@
                 <td width="20%">{{item.number}}</td>
                 <td width="20%">{{item.price}}</td>
                 <td width="30%">
-                    <button class="button" @click="cdetails(item.cid)" style="width:100%">商品详情</button>
+                    <button class="button" @click="cdetails(item.cid)" style="width:100%"><span>商品详情</span></button>
                 </td>
             </tr>
         </table>
     </div>
 </div>
 <script>
-    function altRows(id){
-        if(document.getElementsByTagName){
-
-            var table = document.getElementById(id);
-            var rows = table.getElementsByTagName("tr");
-
-            for(i = 0; i < rows.length; i++){
-                if(i % 2 == 0){
-                    rows[i].className = "evenrowcolor";
-                }else{
-                    rows[i].className = "oddrowcolor";
-                }
-            }
-        }
-    }
-
-    window.onload=function(){
-        altRows('alternatecolor');
-    }
-
     new Vue({
         el:"#orderdetails_root",
         data:{

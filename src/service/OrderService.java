@@ -9,8 +9,7 @@ import dao.UserDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service("orderService")
 public class OrderService {
@@ -51,7 +50,7 @@ public class OrderService {
     public int generateOrder(String user_id,int info_id) throws Exception{
         int order_id=0;
     //    添加条目
-        Date date = new Date();
+        Date date = new Date(System.currentTimeMillis());
         BeanOrder order = new BeanOrder();
         BeanInfo info = infoDao.loadInfoById(info_id);
         order.setUser_id(user_id);
@@ -109,5 +108,35 @@ public class OrderService {
             order.setUser_name(userDao.getUser(order.getUser_id()).getUser_name());
         }
         return orders;
+    }
+    //  热门商品id
+    public List<Integer> hotOrderDetails(){
+        List<BeanOrderdetail> bods = orderDao.findAllOrderdetail();
+        HashMap<Integer,Integer> mapc=new HashMap<>();
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>();
+        for(BeanOrderdetail bod:bods){
+            if(!mapc.containsKey(bod.getC_id())){
+                mapc.put(bod.getC_id(),bod.getOd_number());
+            }
+            else {
+                int num= mapc.get(bod.getC_id());
+                mapc.put(bod.getC_id(),bod.getOd_number()+num);
+            }
+        }
+        for(Map.Entry<Integer, Integer> entry : mapc.entrySet()){
+            list.add(entry); //将map中的元素放入list中
+        }
+
+        list.sort(new Comparator<Map.Entry<Integer, Integer>>(){
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return o2.getValue()-o1.getValue();}
+            //逆序（从大到小）排列，正序为“return o1.getValue()-o2.getValue”
+        });
+        List<Integer> result=new ArrayList<>();
+        for(Map.Entry<Integer, Integer> entry: list){
+            result.add(entry.getKey());
+        }
+        return result;
     }
 }

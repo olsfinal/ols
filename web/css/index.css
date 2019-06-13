@@ -9,6 +9,7 @@
     border-radius: 50px;
     cursor: pointer;
     margin:7px 12px;
+    transition: 0.5s;
   }
 .index_class p{
     font-family:"华文新魏";
@@ -17,3 +18,19 @@
     text-align:center;
     line-height: 125px;
   }
+
+.index_class:hover {
+    width: 400px;
+    height: 300px;
+
+}
+#hot_class {
+    width: 629px;
+    height: 300px;
+
+}
+#hot_class:hover {
+    width: 700px;
+    height: 300px;
+
+}

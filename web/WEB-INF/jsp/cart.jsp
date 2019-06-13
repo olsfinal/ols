@@ -47,9 +47,9 @@
                 <td width="150px">{{item.name}}</td>
                 <td width="150px">{{item.price}}</td>
                 <td width="400px">
-                    <button class="button1" @click="show_detail(item.id)">详情</button>
-                    <button class="button1" @click="addc(item.id)">增加</button>
-                    <button class="button1" @click="delc(item.id)">减少</button>
+                    <button class="button1" @click="show_detail(item.id)"><span>详情</span></button>
+                    <button class="button1" @click="addc(item.id)"><span>增加</span></button>
+                    <button class="button1" @click="delc(item.id)"><span>减少</span></button>
                 </td>
             </tr>
             <tr v-if="index%2==1" class="evenrowcolor">
@@ -57,9 +57,9 @@
                 <td width="150px">{{item.name}}</td>
                 <td width="150px">{{item.price}}</td>
                 <td width="400px">
-                    <button class="button1" @click="show_detail(item.id)">详情</button>
-                    <button class="button1" @click="addc(item.id)">增加</button>
-                    <button class="button1" @click="delc(item.id)">减少</button>
+                    <button @click="show_detail(item.id)"><span>详情</span></button>
+                    <button @click="addc(item.id)"><span>增加</span></button>
+                    <button @click="delc(item.id)"><span>减少</span></button>
                 </td>
             </tr>
 
@@ -68,7 +68,7 @@
     <br>
     <br>
     <p>
-        <button class="button2"  @click="choseinfo()">付款</button>
+        <button class="button2"  @click="choseinfo()"><span>付款</span></button>
     </p>
 
 </div>
