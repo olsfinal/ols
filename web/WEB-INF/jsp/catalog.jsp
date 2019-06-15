@@ -22,7 +22,7 @@
     <div style="margin-left: 270px;" class="finddiv">
         <br>
         <input v-model="inputtext" type="text">
-        <button @click="gofind()"><span>搜索</span></button>
+        <button @click="gofind()"><span>搜索</span></button>（在{{pagename}}中）
         <br>
         <br>
     </div>
@@ -42,9 +42,34 @@
     new Vue({
         el:"#catalog_root",
         data:{
-            commoditys:[]
+            inputtext :"",
+            commoditys:[],
+            pagename:"",
         },
         mounted:function () {
+            <%
+                int index=Integer.parseInt(String.valueOf(session.getAttribute("c_type")));
+                String pagename="";
+                if (index==1) {
+                    pagename="所有商品";       //所有
+                }
+                else if (index==2){
+                    pagename="男装";         //男装
+                }
+                else if (index==3){
+                    pagename="热销";       //热销
+                }
+                else if (index==4){
+                    pagename="女装";         //女装
+                }
+                else if (index==5){
+                    pagename="箱包";         //箱包
+                }
+                else if (index==6){
+                    pagename="鞋靴";         //鞋靴
+                }
+            %>;
+            this.pagename="<%=pagename %>";
             <%
             List<BeanCommodity> bcs= (List<BeanCommodity>) session.getAttribute("commoditys");
             for(BeanCommodity bc:bcs){
@@ -101,6 +126,24 @@
                     .catch(function (error) { // 请求失败处理
                         alert(error);
                     })
+            },
+            gofind :function () {
+                var params = new Object();
+                params.inputtext = this.inputtext;
+                axios.get('findcatalog' , {params:params})
+                    .then(function (res) {
+                        console.log(res);
+                        if (res.data=="1"){
+                            location.href = "showcatalog";
+                        }
+                        else{
+                            alert(res.data);
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        alert(error);
+                    })
+
             },
         },
 

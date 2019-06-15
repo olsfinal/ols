@@ -35,18 +35,18 @@
     <table class="altrowstable">
         <tr>
             <th width="150px">数量</th>
-            <th width="150px">商品名称</th>
+            <th width="250px">商品名称</th>
             <th width="150px">商品价格</th>
-            <th width="400px">操作</th>
+            <th width="320px">操作</th>
         </tr>
     </table>
     <div v-for="(item,index) of carts" >
         <table class="altrowstable">
             <tr v-if="index%2==0" class="oddrowcolor">
                 <td width="150px">{{item.quantity}}</td>
-                <td width="150px">{{item.name}}</td>
+                <td width="250px">{{item.name}}</td>
                 <td width="150px">{{item.price}}</td>
-                <td width="400px">
+                <td width="320px">
                     <button class="button1" @click="show_detail(item.id)"><span>详情</span></button>
                     <button class="button1" @click="addc(item.id)"><span>增加</span></button>
                     <button class="button1" @click="delc(item.id)"><span>减少</span></button>
@@ -54,9 +54,9 @@
             </tr>
             <tr v-if="index%2==1" class="evenrowcolor">
                 <td width="150px">{{item.quantity}}</td>
-                <td width="150px">{{item.name}}</td>
+                <td width="250px">{{item.name}}</td>
                 <td width="150px">{{item.price}}</td>
-                <td width="400px">
+                <td width="320px">
                     <button @click="show_detail(item.id)"><span>详情</span></button>
                     <button @click="addc(item.id)"><span>增加</span></button>
                     <button @click="delc(item.id)"><span>减少</span></button>

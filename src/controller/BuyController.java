@@ -2,6 +2,7 @@ package controller;
 
 import bean.BeanCommodity;
 import cart.ShoppingCart;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.sf.json.JSONArray;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,6 +43,7 @@ public class BuyController {
 
 //        获取选择的类别
         int index = Integer.parseInt(request.getParameter("c_type"));
+        session.setAttribute("c_type",index);
         String c_type="";
         if (index==1) {
             c_type="all";       //所有
@@ -62,28 +64,102 @@ public class BuyController {
             c_type="4";         //鞋靴
         }
         try {
+            List<BeanCommodity> ncs= new ArrayList<>();
             List<BeanCommodity> commoditys = commodityService.getCommoditys();
 //            选择全部商品c_type则为all
             if (c_type.equals("all")){
-                session.setAttribute("commoditys", commoditys);
+                ncs=commoditys;
             }
             else if(c_type.equals("hot")){
-                List<BeanCommodity> ncs= new ArrayList<>();
                 List<Integer> cids=orderService.hotOrderDetails();
                 for(Integer cid :cids){
                     ncs.add(commodityService.getCommodity(cid));
                 }
-                session.setAttribute("commoditys", ncs);
             }
             else {
-                List<BeanCommodity> ncs= new ArrayList<>();
                 for(BeanCommodity bc : commoditys){
                     if (bc.getC_type().equals(c_type)){
                         ncs.add(bc);
                     }
                 }
-                session.setAttribute("commoditys", ncs);
             }
+            session.setAttribute("commoditys", ncs);
+            return "1";
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    @RequestMapping(value="/findcatalog",produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public Object findcatalog(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        HttpSession session = request.getSession();
+
+//        获取选择的类别
+        String indexs = String.valueOf(session.getAttribute("c_type"));
+        int index= Integer.parseInt(indexs);
+        String c_type="";
+        String str1=request.getParameter("inputtext");
+        if (index==1) {
+            c_type="all";       //所有
+        }
+        else if (index==2){
+            c_type="1";         //男装
+        }
+        else if (index==3){
+            c_type="hot";       //热销
+        }
+        else if (index==4){
+            c_type="2";         //女装
+        }
+        else if (index==5){
+            c_type="3";         //箱包
+        }
+        else if (index==6){
+            c_type="4";         //鞋靴
+        }
+        try {
+            List<BeanCommodity> ncs= new ArrayList<>();
+            List<BeanCommodity> commoditys = commodityService.getCommoditys();
+//            选择全部商品c_type则为all
+            if (c_type.equals("all")){
+                ncs=commoditys;
+            }
+            else if(c_type.equals("hot")){
+                List<Integer> cids=orderService.hotOrderDetails();
+                for(Integer cid :cids){
+                    ncs.add(commodityService.getCommodity(cid));
+                }
+            }
+            else {
+                for(BeanCommodity bc : commoditys){
+                    if (bc.getC_type().equals(c_type)){
+                        ncs.add(bc);
+                    }
+                }
+            }
+            int flag=0;
+            List<BeanCommodity> ncs2= new ArrayList<>();
+            for(BeanCommodity bc : ncs){
+                if(str1.split(" ").length==1){
+                    if (bc.getC_name().contains(str1)){
+                        ncs2.add(bc);
+                    }
+                }
+                else {
+                    for(String ss:str1.split(" ")){
+                        if (!bc.getC_name().contains(ss)){
+                            flag=1;
+                        }
+                    }
+                    if (flag==0){
+                        ncs2.add(bc);
+                    }
+                    flag=0;
+                }
+
+            }
+            session.setAttribute("commoditys", ncs2);
             return "1";
         } catch (Exception ex) {
             return ex.getMessage();
