@@ -25,28 +25,39 @@
         <button @click="addc()"><span>新增</span></button>
         <br>
         <br>
-        <table class="htable">
+        <table class="altrowstable">
             <tr>
-                <th width="153px">商品id</th>
-                <th width="153px">商品名称</th>
-                <th width="153px">商品价格</th>
-                <th width="153px">商品库存</th>
-                <th width="283px">操作</th>
+                <th width="150px">商品id</th>
+                <th width="150px">商品名称</th>
+                <th width="150px">商品价格</th>
+                <th width="150px">商品库存</th>
+                <th width="280px">操作</th>
             </tr>
         </table>
-        <div v-for="(item,index) of commoditys" class="mtable" >
-            <table>
-            <tr>
-                <th width="150px">{{item.id}}</th>
-                <th width="150px">{{item.name}}</th>
-                <th width="150px">{{item.price}}</th>
-                <th width="150px">{{item.inventory}}</th>
-                <th width="280px">
-                    <button @click="modifyc(item.id)"><span>修改</span></button>
-                    <button @click="removec(item.id)"><span>删除</span></button>
-                    <button @click="orderdetail(item.id)"><span>详情</span></button>
-                </th>
-            </tr>
+        <div v-for="(item,index) of commoditys" >
+            <table class="altrowstable" id="alternatecolor">
+                <tr v-if="index%2==0" class="oddrowcolor">
+                    <td width="150px">{{item.id}}</td>
+                    <td width="150px">{{item.name}}</td>
+                    <td width="150px">{{item.price}}</td>
+                    <td width="150px">{{item.inventory}}</td>
+                    <td width="280px">
+                        <button class="button1" @click="modifyc(item.id)"><span>修改</span></button>
+                        <button class="button1" @click="removec(item.id)"><span>删除</span></button>
+                        <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
+                    </td>
+                </tr>
+                <tr v-if="index%2==1" class="evenrowcolor">
+                    <td width="150px">{{item.id}}</td>
+                    <td width="150px">{{item.name}}</td>
+                    <td width="150px">{{item.price}}</td>
+                    <td width="150px">{{item.inventory}}</td>
+                    <td width="280px">
+                        <button class="button1" @click="modifyc(item.id)"><span>修改</span></button>
+                        <button class="button1" @click="removec(item.id)"><span>删除</span></button>
+                        <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

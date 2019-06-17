@@ -291,6 +291,10 @@ public class BuyController {
 //            运费id为0
             if(totalPrice<10){
                 BeanCommodity freight = commodityService.getCommodity(0);
+                if(freight.getC_inventory()<=0){
+                    freight.setC_inventory(999999);
+                    commodityService.modifyCommodity(freight);
+                }
                 cart.add(0,freight);
             }
             commodityService.buyCommoditys(user_id,cart,info_id);

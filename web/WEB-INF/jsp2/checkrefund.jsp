@@ -32,31 +32,44 @@
     </p>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable">
         <tr>
-            <th width="103px">订单号</th>
-            <th width="203px">订单时间</th>
-            <th width="103px">收货人</th>
-            <th width="203px">地址</th>
-            <th width="123px">电话</th>
-            <th width="103px">订单状态</th>
-            <th width="283px">操作</th>
+            <th width="100px">订单号</th>
+            <th width="200px">订单时间</th>
+            <th width="100px">收货人</th>
+            <th width="200px">地址</th>
+            <th width="120px">电话</th>
+            <th width="100px">订单状态</th>
+            <th width="280px">操作</th>
         </tr>
     </table>
-    <div v-for="(item,index) of orders" class="mtable">
-        <table>
-            <tr>
-                <th width="100px">{{item.id}}</th>
-                <th width="200px">{{item.time}}</th>
-                <th width="100px">{{item.name}}</th>
-                <th width="200px">{{item.address}}</th>
-                <th width="120px">{{item.tel}}</th>
-                <th width="100px">{{item.state}}</th>
-                <th width="280px">
-                    <button v-show="item.show" @click="confirmrefund(item.id)"><span>同意退款</span></button>
-                    <button v-show="item.show" @click="defuserefund(item.id)"><span>拒绝退款</span></button>
-                    <button @click="orderdetail(item.id)"><span>详情</span></button>
-                </th>
+    <div v-for="(item,index) of orders">
+        <table   class="altrowstable" id="alternatecolor">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="100px">{{item.id}}</td>
+                <td width="200px">{{item.time}}</td>
+                <td width="100px">{{item.name}}</td>
+                <td width="200px">{{item.address}}</td>
+                <td width="120px">{{item.tel}}</td>
+                <td width="100px">{{item.state}}</td>
+                <td width="280px">
+                    <button class="button1" v-show="item.show" @click="confirmrefund(item.id)"><span>同意退款</span></button>
+                    <button class="button1" v-show="item.show" @click="defuserefund(item.id)"><span>拒绝退款</span></button>
+                    <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
+                </td>
+            </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="100px">{{item.id}}</td>
+                <td width="200px">{{item.time}}</td>
+                <td width="100px">{{item.name}}</td>
+                <td width="200px">{{item.address}}</td>
+                <td width="120px">{{item.tel}}</td>
+                <td width="100px">{{item.state}}</td>
+                <td width="280px">
+                    <button class="button1" v-show="item.show" @click="confirmrefund(item.id)"><span>同意退款</span></button>
+                    <button class="button1" v-show="item.show" @click="defuserefund(item.id)"><span>拒绝退款</span></button>
+                    <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
+                </td>
             </tr>
         </table>
     </div>

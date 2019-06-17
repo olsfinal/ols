@@ -7,6 +7,7 @@ import dao.InfoDao;
 import dao.OrderDao;
 import dao.UserDao;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -47,6 +48,7 @@ public class OrderService {
     }
 
     //    生成订单，返回order_id
+    @Transactional
     public int generateOrder(String user_id,int info_id) throws Exception{
         int order_id=0;
     //    添加条目

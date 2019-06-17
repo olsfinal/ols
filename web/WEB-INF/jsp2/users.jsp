@@ -23,24 +23,32 @@
     <div style="margin-left: 250px;">
         <br>
         <br>
-        <table class="htable">
+        <table class="altrowstable">
             <tr>
-                <th width="153px">用户id</th>
-                <th width="153px">用户姓名</th>
-                <th width="153px">用户密码</th>
-                <th width="203px">操作</th>
+                <th width="150px">用户id</th>
+                <th width="150px">用户姓名</th>
+                <th width="150px">用户密码</th>
+                <th width="200px">操作</th>
             </tr>
         </table>
-        <div v-for="(item,index) of users" class="mtable" >
-            <table>
-            <tr>
-                <th width="150px">{{item.id}}</th>
-                <th width="150px">{{item.name}}</th>
-                <th width="150px">{{item.pwd}}</th>
-                <th width="200px">
-                    <button @click="repwd(item.id)" style="width: 150px;"><span>重置密码</span></button>
-                </th>
-            </tr>
+        <div v-for="(item,index) of users"  >
+            <table class="altrowstable" id="alternatecolor">
+                <tr v-if="index%2==0" class="oddrowcolor">
+                    <td width="150px">{{item.id}}</td>
+                    <td width="150px">{{item.name}}</td>
+                    <td width="150px">{{item.pwd}}</td>
+                    <td width="200px">
+                        <button class="button1" @click="repwd(item.id)" style="width: 150px;"><span>重置密码</span></button>
+                    </td>
+                </tr>
+                <tr v-if="index%2==1" class="evenrowcolor">
+                    <td width="150px">{{item.id}}</td>
+                    <td width="150px">{{item.name}}</td>
+                    <td width="150px">{{item.pwd}}</td>
+                    <td width="200px">
+                        <button class="button1" @click="repwd(item.id)" style="width: 150px;"><span>重置密码</span></button>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
