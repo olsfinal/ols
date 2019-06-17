@@ -31,7 +31,7 @@
     <p style="font-family: '华文隶书'; font-size:50px;">
         &nbsp;&nbsp;我的地址
     </p>
-    <table class="htable">
+    <table class="altrowstable">
         <tr>
             <th width="120px">姓名</th>
             <th width="400px">地址</th>
@@ -39,21 +39,29 @@
             <th width="200px">选择</th>
         </tr>
     </table>
-    <div v-for="(item,index) of infos" class="mtable">
-        <table>
-            <tr>
-                <th width="120px">{{item.name}}</th>
-                <th width="400px">{{item.address}}</th>
-                <th width="300px">{{item.tel}}</th>
-                <th width="200px">
-                    <button @click="cashier(item.id)">选择</button>
-                </th>
+    <div v-for="(item,index) of infos">
+        <table class="altrowstable">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="120px">{{item.name}}</td>
+                <td width="400px">{{item.address}}</td>
+                <td width="300px">{{item.tel}}</td>
+                <td width="200px">
+                    <button class="button" @click="cashier(item.id)">选择</button>
+                </td>
+            </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="120px">{{item.name}}</td>
+                <td width="400px">{{item.address}}</td>
+                <td width="300px">{{item.tel}}</td>
+                <td width="200px">
+                    <button class="button" @click="cashier(item.id)">选择</button>
+                </td>
             </tr>
         </table>
     </div>
     <br>
     <br>
-    <button @click="addinfo()">新增</button>
+    <button class="button2" @click="addinfo()">新增</button>
 </div>
 <script>
     new Vue({

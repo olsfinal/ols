@@ -30,27 +30,36 @@
     <p style="font-family: '华文隶书'; font-size:50px;">
         我的地址
     </p>
-    <button @click="addi()">新增</button>
+    <button class="button2" @click="addi()"><span>新增</span></button>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable">
         <tr>
             <th width="120px">姓名</th>
             <th width="400px">地址</th>
             <th width="300px">电话</th>
-            <th width="200px">操作</th>
+            <th width="230px">操作</th>
         </tr>
     </table>
-    <div v-for="(item,index) of infos" class="mtable">
-        <table>
-            <tr>
-                <th width="120px">{{item.name}}</th>
-                <th width="400px">{{item.address}}</th>
-                <th width="300px">{{item.tel}}</th>
-                <th width="200px">
-                    <button @click="modifyi(item.id)">修改</button>
-                    <button @click="deli(item.id)">删除</button>
-                </th>
+    <div v-for="(item,index) of infos" >
+        <table class="altrowstable">
+            <tr v-if="index%2==0" class="oddrowcolor">
+                <td width="120px">{{item.name}}</td>
+                <td width="400px">{{item.address}}</td>
+                <td width="300px">{{item.tel}}</td>
+                <td width="230px">
+                    <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
+                    <button class="button1" @click="deli(item.id)"><span>删除</span></button>
+                </td>
+            </tr>
+            <tr v-if="index%2==1" class="evenrowcolor">
+                <td width="120px">{{item.name}}</td>
+                <td width="400px">{{item.address}}</td>
+                <td width="300px">{{item.tel}}</td>
+                <td width="230px">
+                    <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
+                    <button class="button1" @click="deli(item.id)"><span>删除</span></button>
+                </td>
             </tr>
         </table>
     </div>

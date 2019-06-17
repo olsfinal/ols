@@ -73,7 +73,6 @@
         },
         methods: {
             confim : function() {
-                alert("confirm");
                 var params = new Object();
                 params.address = this.address;
                 params.i_name=this.i_name;

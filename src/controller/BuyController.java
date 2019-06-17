@@ -2,6 +2,7 @@ package controller;
 
 import bean.BeanCommodity;
 import cart.ShoppingCart;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import net.sf.json.JSONArray;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,9 @@ public class BuyController {
     @Resource(name = "commodityService")
     private CommodityService commodityService;
 
+    @Resource(name = "orderService")
+    private OrderService orderService;
+
 //      类别目录
     @RequestMapping("/index")
     public ModelAndView ShowIndex(HttpServletRequest request, HttpServletResponse resq) throws Exception{
@@ -39,32 +43,123 @@ public class BuyController {
 
 //        获取选择的类别
         int index = Integer.parseInt(request.getParameter("c_type"));
-//        ArrayList<String> list= new ArrayList<>();
-////        添加类型
-//        list.add("all");list.add("type1");list.add("hot");list.add("type2");
-//        String c_type=list.get(index-1);
-        String c_type;
-        if (index==0) {
-            c_type="all";
+        session.setAttribute("c_type",index);
+        String c_type="";
+        if (index==1) {
+            c_type="all";       //所有
         }
-        else{
-            c_type="1";
+        else if (index==2){
+            c_type="1";         //男装
+        }
+        else if (index==3){
+            c_type="hot";       //热销
+        }
+        else if (index==4){
+            c_type="2";         //女装
+        }
+        else if (index==5){
+            c_type="3";         //箱包
+        }
+        else if (index==6){
+            c_type="4";         //鞋靴
         }
         try {
+            List<BeanCommodity> ncs= new ArrayList<>();
             List<BeanCommodity> commoditys = commodityService.getCommoditys();
 //            选择全部商品c_type则为all
             if (c_type.equals("all")){
-                session.setAttribute("commoditys", commoditys);
+                ncs=commoditys;
+            }
+            else if(c_type.equals("hot")){
+                List<Integer> cids=orderService.hotOrderDetails();
+                for(Integer cid :cids){
+                    ncs.add(commodityService.getCommodity(cid));
+                }
             }
             else {
-                List<BeanCommodity> ncs= new ArrayList<>();
                 for(BeanCommodity bc : commoditys){
                     if (bc.getC_type().equals(c_type)){
                         ncs.add(bc);
                     }
                 }
-                session.setAttribute("commoditys", ncs);
             }
+            session.setAttribute("commoditys", ncs);
+            return "1";
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    @RequestMapping(value="/findcatalog",produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public Object findcatalog(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        HttpSession session = request.getSession();
+
+//        获取选择的类别
+        String indexs = String.valueOf(session.getAttribute("c_type"));
+        int index= Integer.parseInt(indexs);
+        String c_type="";
+        String str1=request.getParameter("inputtext");
+        if (index==1) {
+            c_type="all";       //所有
+        }
+        else if (index==2){
+            c_type="1";         //男装
+        }
+        else if (index==3){
+            c_type="hot";       //热销
+        }
+        else if (index==4){
+            c_type="2";         //女装
+        }
+        else if (index==5){
+            c_type="3";         //箱包
+        }
+        else if (index==6){
+            c_type="4";         //鞋靴
+        }
+        try {
+            List<BeanCommodity> ncs= new ArrayList<>();
+            List<BeanCommodity> commoditys = commodityService.getCommoditys();
+//            选择全部商品c_type则为all
+            if (c_type.equals("all")){
+                ncs=commoditys;
+            }
+            else if(c_type.equals("hot")){
+                List<Integer> cids=orderService.hotOrderDetails();
+                for(Integer cid :cids){
+                    ncs.add(commodityService.getCommodity(cid));
+                }
+            }
+            else {
+                for(BeanCommodity bc : commoditys){
+                    if (bc.getC_type().equals(c_type)){
+                        ncs.add(bc);
+                    }
+                }
+            }
+            int flag=0;
+            List<BeanCommodity> ncs2= new ArrayList<>();
+            for(BeanCommodity bc : ncs){
+                if(str1.split(" ").length==1){
+                    if (bc.getC_name().contains(str1)){
+                        ncs2.add(bc);
+                    }
+                }
+                else {
+                    for(String ss:str1.split(" ")){
+                        if (!bc.getC_name().contains(ss)){
+                            flag=1;
+                        }
+                    }
+                    if (flag==0){
+                        ncs2.add(bc);
+                    }
+                    flag=0;
+                }
+
+            }
+            session.setAttribute("commoditys", ncs2);
             return "1";
         } catch (Exception ex) {
             return ex.getMessage();
@@ -91,6 +186,8 @@ public class BuyController {
             //     获取商品id对应的商品
             BeanCommodity commodity = commodityService.getCommodity(Integer.parseInt(c_id));
             cart.add(Integer.parseInt(c_id), commodity);
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
             return "1";
         } catch (Exception e) {
             return e.getMessage();
@@ -112,6 +209,8 @@ public class BuyController {
         try {
             //     获取商品id对应的商品
             cart.remove(Integer.parseInt(c_id));
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
             return "1";
         } catch (Exception e) {
             return e.getMessage();
@@ -121,9 +220,19 @@ public class BuyController {
 //    显示购物车
     @RequestMapping("/showcart")
     public ModelAndView Showcart(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        try{
+            HttpSession session = request.getSession();
+            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
+//            System.out.println(totalPrice);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp/cart.jsp");
+
         return mv;
     }
 
@@ -135,7 +244,7 @@ public class BuyController {
         HttpSession session = request.getSession();
 //         从前端获取c_id
         String  c_id= request.getParameter("c_id");
-
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         try {
     //       获取商品id对应的商品
             BeanCommodity commodity = commodityService.getCommodity(Integer.parseInt(c_id));
@@ -178,7 +287,18 @@ public class BuyController {
         String user_id= (String) session.getAttribute("user_id");
         try {
     //      购买
+            float totalPrice=commodityService.getTotalPrice(cart);
+//            运费id为0
+            if(totalPrice<10){
+                BeanCommodity freight = commodityService.getCommodity(0);
+                if(freight.getC_inventory()<=0){
+                    freight.setC_inventory(999999);
+                    commodityService.modifyCommodity(freight);
+                }
+                cart.add(0,freight);
+            }
             commodityService.buyCommoditys(user_id,cart,info_id);
+            session.setAttribute("totalprice","0.0");
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return e.getMessage();

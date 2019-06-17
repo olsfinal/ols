@@ -19,15 +19,20 @@
 
 <!-- 主要部分 -->
 <div id="catalog_root">
+    <div style="margin-left: 270px;" class="finddiv">
+        <br>
+        <input v-model="inputtext" type="text">
+        <button @click="gofind()"><span>搜索</span></button>（在{{pagename}}中）
+        <br>
+        <br>
+    </div>
     <div style="margin-left: 250px;">
         <div v-for="(item,index) of commoditys" class="catalog_class" >
             <img :src="item.img" @click="show_c(item.id)">
             <strong>￥{{item.price}}</strong><br>
             <span>{{item.name}}</span>
             <br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button @click="chose_c(item.id)" style="font-family: '宋体';font-size: 22px;
-                font-weight:500;color: white; border: 0.5em groove rgba(19, 135, 4, 0);cursor: pointer;
-                background-color: rgba(255,7,3,0.78);height:40px;width: 150px;">
+            <button @click="chose_c(item.id)" >
                 加入购物车
             </button>
         </div>
@@ -37,9 +42,34 @@
     new Vue({
         el:"#catalog_root",
         data:{
-            commoditys:[]
+            inputtext :"",
+            commoditys:[],
+            pagename:"",
         },
         mounted:function () {
+            <%
+                int index=Integer.parseInt(String.valueOf(session.getAttribute("c_type")));
+                String pagename="";
+                if (index==1) {
+                    pagename="所有商品";       //所有
+                }
+                else if (index==2){
+                    pagename="男装";         //男装
+                }
+                else if (index==3){
+                    pagename="热销";       //热销
+                }
+                else if (index==4){
+                    pagename="女装";         //女装
+                }
+                else if (index==5){
+                    pagename="箱包";         //箱包
+                }
+                else if (index==6){
+                    pagename="鞋靴";         //鞋靴
+                }
+            %>;
+            this.pagename="<%=pagename %>";
             <%
             List<BeanCommodity> bcs= (List<BeanCommodity>) session.getAttribute("commoditys");
             for(BeanCommodity bc:bcs){
@@ -48,7 +78,7 @@
             bc.id=<%=bc.getC_id() %>;
             bc.price=<%=bc.getC_price() %>;
             bc.name="<%=bc.getC_name() %>";
-            bc.img="<%=bc.getC_img() %>";
+            bc.img="pic/"+"<%=bc.getC_img() %>";
             this.commoditys.push(bc);
             <%
                 }
@@ -96,6 +126,24 @@
                     .catch(function (error) { // 请求失败处理
                         alert(error);
                     })
+            },
+            gofind :function () {
+                var params = new Object();
+                params.inputtext = this.inputtext;
+                axios.get('findcatalog' , {params:params})
+                    .then(function (res) {
+                        console.log(res);
+                        if (res.data=="1"){
+                            location.href = "showcatalog";
+                        }
+                        else{
+                            alert(res.data);
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        alert(error);
+                    })
+
             },
         },
 

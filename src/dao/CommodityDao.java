@@ -64,14 +64,14 @@ public class CommodityDao {
 
 //    返回所有商品
     public List<BeanCommodity> findAllCommodity() {
-        String sql = "select * from commodity_t";
+        String sql = "select * from commodity_t where c_id > 0";
         RowMapper<BeanCommodity> rowMapper = new BeanPropertyRowMapper<BeanCommodity>(BeanCommodity.class);
         return this.jdbcTemplate.query(sql, rowMapper);
     }
 
 //    根据类别返回商品
     public List<BeanCommodity> findCommodityByType(String c_type) {
-        String sql = "select * from commodity_t where c_type = ?";
+        String sql = "select * from commodity_t where c_type = ? and c_id > 0";
         RowMapper<BeanCommodity> rowMapper = new BeanPropertyRowMapper<BeanCommodity>(BeanCommodity.class);
         return this.jdbcTemplate.query(sql, rowMapper,c_type);
     }

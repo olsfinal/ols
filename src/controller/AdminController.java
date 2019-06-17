@@ -4,7 +4,9 @@ import bean.BeanCommodity;
 import bean.BeanOrder;
 import bean.BeanOrderdetail;
 import bean.BeanUser;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import service.CommodityService;
 import service.OrderService;
@@ -33,51 +35,86 @@ public class AdminController {
     @RequestMapping("/aindex")
     public ModelAndView Aindex(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/aindex.jsp");
+        mv.setViewName("/WEB-INF/jsp2/aindex.jsp");
         return mv;
     }
 
-//    显示退款处理界面
     @RequestMapping("/checkrefund")
-    public ModelAndView Checkrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @ResponseBody
+    public Object checkrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 
-//        获取所需要显示的订单状态
+    try {
+        //        获取所需要显示的订单状态
         int o_state= Integer.parseInt(request.getParameter("o_state"));
-//        根据订单状态o_state获得订单
-        List<BeanOrder> orders=orderService.loadOrdersByState(o_state);
+        List<BeanOrder> orders;
+//        已审核
+        if (o_state==6){
+            orders=orderService.loadOrdersByState(4);
+            List<BeanOrder> orders2=orderService.loadOrdersByState(5);
+            orders.addAll(orders2);
+            session.setAttribute("pageid","2");
+        }
+//        待审核
+        else {
+            orders=orderService.loadOrdersByState(o_state);
+            session.setAttribute("pageid","1");
+        }
 
-        session.setAttribute("orders",orders);
+        session.setAttribute("ordersList",orders);
+        return "1";
+    }
+    catch (Exception e){
+        return e.getMessage();
+    }
+    }
+
+//    显示退款处理界面
+    @RequestMapping("/showcheckrefund")
+    public ModelAndView showcheckrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
+
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/checkrefund.jsp");
+        mv.setViewName("/WEB-INF/jsp2/checkrefund.jsp");
         return mv;
     }
 
 
 //    确认退款
     @RequestMapping("/confirmrefund")
-    public ModelAndView Confirmrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @ResponseBody
+    public Object Confirmrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 
-        int order_id= Integer.parseInt(request.getParameter("order_id"));
+        try{
+            int order_id= Integer.parseInt(request.getParameter("order_id"));
 
-        int o_state= Integer.parseInt(request.getParameter("o_state"));
-        orderService.changeOrderStatus(order_id,o_state);
-
-        ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/checkrefund.jsp");
-        return mv;
+            int o_state= Integer.parseInt(request.getParameter("o_state"));
+            orderService.changeOrderStatus(order_id,o_state);
+//            更新退款界面
+            List<BeanOrder> orders=orderService.loadOrdersByState(4);
+            List<BeanOrder> orders2=orderService.loadOrdersByState(5);
+            orders.addAll(orders2);
+            session.setAttribute("ordersList",orders);
+            session.setAttribute("pageid","2");
+            return "1";
+        }
+        catch (Exception e){
+            return e.getMessage();
+        }
     }
 
 //    显示所有商品
-    @RequestMapping("/commoditys")
+    @RequestMapping("/acommoditys")
     public ModelAndView Commoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/commoditys.jsp");
+        mv.setViewName("/WEB-INF/jsp2/acommoditys.jsp");
         return mv;
     }
 
@@ -85,145 +122,164 @@ public class AdminController {
     @RequestMapping("/showaddcommoditys")
     public ModelAndView showaddcommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/addcommoditys.jsp");
+        mv.setViewName("/WEB-INF/jsp2/addcommoditys.jsp");
         return mv;
     }
 
 //    add商品
     @RequestMapping("/addcommoditys")
-    public ModelAndView addcommoditys(HttpServletRequest request, HttpServletResponse resq) {
+    @ResponseBody
+    public Object addcommoditys(HttpServletRequest request, HttpServletResponse resq) {
 
         HttpSession session = request.getSession();
-//        从前端获取
-        String c_name= request.getParameter("c_name");
-        float c_price= Float.parseFloat(request.getParameter("c_price"));
-        int c_inventory = Integer.parseInt(request.getParameter("c_inventory"));
-        String c_img =request.getParameter("c_img");
-        String c_detail =request.getParameter("c_detail");
-        String c_type =request.getParameter("c_type");
-        BeanCommodity bc =new BeanCommodity();
-        bc.setC_name(c_name);
-        bc.setC_price(c_price);
-        bc.setC_inventory(c_inventory);
-        bc.setC_img(c_img);
-        bc.setC_detail(c_detail);
-        bc.setC_type(c_type);
-
-        try{
+        try {
+            //        从前端获取
+            float c_price = Float.parseFloat(request.getParameter("c_price"));
+            int c_inventory = Integer.parseInt(request.getParameter("c_inventory"));
+            String c_name = request.getParameter("c_name");
+            String c_img = request.getParameter("c_img");
+            String c_detail = request.getParameter("c_detail");
+            String c_type = request.getParameter("c_type");
+//            +判断商品类型
+            if (c_name.equals("") || c_img.equals("") || c_detail.equals("") || c_type.equals("")) {
+                throw new Exception("所有项都不得为空");
+            }
+            BeanCommodity bc = new BeanCommodity();
+            bc.setC_name(c_name);
+            bc.setC_price(c_price);
+            bc.setC_inventory(c_inventory);
+            bc.setC_img(c_img);
+            bc.setC_detail(c_detail);
+            bc.setC_type(c_type);
             commodityService.addCommodity(bc);
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","add succeed");
-            mv.setViewName("/WEB-INF/jsp/commoditys.jsp");
-            return mv;
+            List<BeanCommodity> commoditys = commodityService.getCommoditys();
+            session.setAttribute("commoditys", commoditys);
+            return "1";
         }
         catch (Exception e){
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","failed:"+e.getMessage());
-            mv.setViewName("/WEB-INF/jsp/addcommoditys.jsp");
-            return mv;
+            return e.getMessage();
         }
     }
 
 
+    //    显示modify商品界面
+    @RequestMapping("/getcid")
+    @ResponseBody
+    public Object getcid(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        HttpSession session = request.getSession();
+        BeanCommodity commodity=commodityService.getCommodity(Integer.parseInt(request.getParameter("c_id")));
+        session.setAttribute("c_id",request.getParameter("c_id"));
+        session.setAttribute("c_name",commodity.getC_name());
+        session.setAttribute("c_price",commodity.getC_price());
+        session.setAttribute("c_inventory",commodity.getC_inventory());
+        session.setAttribute("c_type",commodity.getC_type());
+        session.setAttribute("c_detail",commodity.getC_detail());
+        session.setAttribute("c_img",commodity.getC_img());
+        return "1";
+    }
 //    显示modify商品界面
     @RequestMapping("/showupdatecommoditys")
     public ModelAndView showupdatecommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/modifyicommoditys.jsp");
+        mv.setViewName("/WEB-INF/jsp2/modifyicommoditys.jsp");
         return mv;
     }
 
 //    modify商品
     @RequestMapping("/modifyicommoditys")
-    public ModelAndView modifyicommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @ResponseBody
+    public Object modifyicommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 //        从前端获取
-        String c_name= request.getParameter("c_name");
-        float c_price= Float.parseFloat(request.getParameter("c_price"));
-        int c_inventory = Integer.parseInt(request.getParameter("c_inventory"));
-        String c_img =request.getParameter("c_img");
-        String c_detail =request.getParameter("c_detail");
-        String c_type =request.getParameter("c_type");
-        BeanCommodity bc =new BeanCommodity();
-        bc.setC_name(c_name);
-        bc.setC_price(c_price);
-        bc.setC_inventory(c_inventory);
-        bc.setC_img(c_img);
-        bc.setC_detail(c_detail);
-        bc.setC_type(c_type);
         try{
+            String c_name= request.getParameter("c_name");
+            float c_price= Float.parseFloat(request.getParameter("c_price"));
+            int c_inventory = Integer.parseInt(request.getParameter("c_inventory"));
+            String c_img =request.getParameter("c_img");
+            String c_detail =request.getParameter("c_detail");
+            String c_type =request.getParameter("c_type");
+            BeanCommodity bc =new BeanCommodity();
+            bc.setC_name(c_name);
+            bc.setC_price(c_price);
+            bc.setC_inventory(c_inventory);
+            bc.setC_img(c_img);
+            bc.setC_detail(c_detail);
+            bc.setC_type(c_type);
+            String cid=(String)session.getAttribute("c_id");
+            bc.setC_id(Integer.parseInt(cid));
             commodityService.modifyCommodity(bc);
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","modify succeed");
-            mv.setViewName("/WEB-INF/jsp/commoditys.jsp");
-            return mv;
+            List<BeanCommodity> commoditys = commodityService.getCommoditys();
+            session.setAttribute("commoditys", commoditys);
+            return "1";
         }
         catch (Exception e){
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","failed:"+e.getMessage());
-            mv.setViewName("/WEB-INF/jsp/addcommoditys.jsp");
-            return mv;
+            return e.getMessage();
         }
     }
 
+
 //    remove商品
     @RequestMapping("/removecommoditys")
-    public ModelAndView removecommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @ResponseBody
+    public Object removecommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 //        从前端获取
-        int c_id= Integer.parseInt(request.getParameter("Remove"));
+        int c_id= Integer.parseInt(request.getParameter("c_id"));
 
         try{
             commodityService.deleteCommodity(c_id);
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","del succeed");
-            mv.setViewName("/WEB-INF/jsp/commoditys.jsp");
-            return mv;
+            List<BeanCommodity> commoditys = commodityService.getCommoditys();
+            session.setAttribute("commoditys", commoditys);
+            return "1";
         }
         catch (Exception e){
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","failed:"+e.getMessage());
-            mv.setViewName("/WEB-INF/jsp/addcommoditys.jsp");
-            return mv;
+            return e.getMessage();
         }
     }
 
 //    显示users界面
-    @RequestMapping("/users")
-    public ModelAndView users(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @RequestMapping("/showusers")
+    public ModelAndView showusers(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
+        List<BeanUser> users = userService.loadAllUsers();
+        List<BeanUser> nus= new ArrayList<>();
+        for(BeanUser user : users){
+            if (user.getAdmin()==0){
+                nus.add(user);
+            }
+        }
+
+        session.setAttribute("users", nus);
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("/WEB-INF/jsp/users.jsp");
+        mv.setViewName("/WEB-INF/jsp2/users.jsp");
         return mv;
     }
 
 //    重置用户密码
     @RequestMapping("/rechargeuser")
-    public ModelAndView rechargeuser(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+    @ResponseBody
+    public Object rechargeuser(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
 
 //        从前端获取
-        String user_id= request.getParameter("Recharge");
+        String user_id= request.getParameter("c_id");
 
         try{
             BeanUser usr=userService.getUserDao().getUser(user_id);
             usr.setUser_pwd("123456");
             userService.modifyUser(usr);
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","recharge succeed");
-            mv.setViewName("/WEB-INF/jsp/users.jsp");
-            return mv;
+            return "1";
         }
         catch (Exception e){
-            ModelAndView mv=new ModelAndView();
-            session.setAttribute("msg","failed:"+e.getMessage());
-            mv.setViewName("/WEB-INF/jsp/users.jsp");
-            return mv;
+            return e.getMessage();
         }
     }
 //     提升用户为管理员
@@ -237,13 +293,13 @@ public class AdminController {
             userService.appointAdmin(user_id);
             ModelAndView mv=new ModelAndView();
             session.setAttribute("msg","appoint succeed");
-            mv.setViewName("/WEB-INF/jsp/users.jsp");
+            mv.setViewName("/WEB-INF/jsp2/users.jsp");
             return mv;
         }
         catch (Exception e){
             ModelAndView mv=new ModelAndView();
             session.setAttribute("msg","failed:"+e.getMessage());
-            mv.setViewName("/WEB-INF/jsp/users.jsp");
+            mv.setViewName("/WEB-INF/jsp2/users.jsp");
             return mv;
         }
     }
