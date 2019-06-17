@@ -40,7 +40,7 @@
             <th width="200px">地址</th>
             <th width="120px">电话</th>
             <th width="100px">订单状态</th>
-            <th width="280px">操作</th>
+            <th width="200px">操作</th>
         </tr>
     </table>
     <div v-for="(item,index) of orders">
@@ -52,7 +52,7 @@
                 <td width="200px">{{item.address}}</td>
                 <td width="120px">{{item.tel}}</td>
                 <td width="100px">{{item.state}}</td>
-                <td width="280px">
+                <td width="200px">
                     <button class="button1" v-show="item.show" @click="confirmrefund(item.id)"><span>同意退款</span></button>
                     <button class="button1" v-show="item.show" @click="defuserefund(item.id)"><span>拒绝退款</span></button>
                     <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
@@ -65,7 +65,7 @@
                 <td width="200px">{{item.address}}</td>
                 <td width="120px">{{item.tel}}</td>
                 <td width="100px">{{item.state}}</td>
-                <td width="280px">
+                <td width="200px">
                     <button class="button1" v-show="item.show" @click="confirmrefund(item.id)"><span>同意退款</span></button>
                     <button class="button1" v-show="item.show" @click="defuserefund(item.id)"><span>拒绝退款</span></button>
                     <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>

@@ -72,7 +72,7 @@
                             }
                             else if(res.data=="2"){
                                 //管理员目录
-                                location.href = "aindex";
+                                location.href = "showusers";
                             }
                             else{
                                 alert(res.data);

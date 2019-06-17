@@ -31,7 +31,7 @@
                 <th width="150px">商品名称</th>
                 <th width="150px">商品价格</th>
                 <th width="150px">商品库存</th>
-                <th width="280px">操作</th>
+                <th width="330px">操作</th>
             </tr>
         </table>
         <div v-for="(item,index) of commoditys" >
@@ -41,7 +41,7 @@
                     <td width="150px">{{item.name}}</td>
                     <td width="150px">{{item.price}}</td>
                     <td width="150px">{{item.inventory}}</td>
-                    <td width="280px">
+                    <td width="330px">
                         <button class="button1" @click="modifyc(item.id)"><span>修改</span></button>
                         <button class="button1" @click="removec(item.id)"><span>删除</span></button>
                         <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>
@@ -52,7 +52,7 @@
                     <td width="150px">{{item.name}}</td>
                     <td width="150px">{{item.price}}</td>
                     <td width="150px">{{item.inventory}}</td>
-                    <td width="280px">
+                    <td width="330px">
                         <button class="button1" @click="modifyc(item.id)"><span>修改</span></button>
                         <button class="button1" @click="removec(item.id)"><span>删除</span></button>
                         <button class="button1" @click="orderdetail(item.id)"><span>详情</span></button>

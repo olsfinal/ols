@@ -36,9 +36,7 @@ body{
   margin-top: 0.25em;
   border-left: 0.5em groove #e74c3c;
   cursor: pointer;
-  /*transition: 1s;*/
-  transition: all .5s ease-in 0s;
-
+  transition: 0.4s all;
 }
 
 /* 鼠标靠近时的变化效果 */
@@ -50,8 +48,6 @@ body{
   display:block;
   padding: 0px;
   width: 170px;
-
-
 }
 #myleft ul li ul{
   display:none;
