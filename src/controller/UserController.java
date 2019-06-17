@@ -71,11 +71,14 @@ public class UserController {
 //            普通用户
             if(userService.getUserDao().getUser(userid).getAdmin()==0){
                 session.setAttribute("user_id",user_id);
+                session.setAttribute("user_name",userService.getUserDao().getUser(userid).getUser_name());
+                session.setAttribute("admin",0);
                 return "1";
             }
 //            管理员
             else{
                 session.setAttribute("user_id",user_id);
+                session.setAttribute("admin",1);
                 return "2";
             }
         }
@@ -117,6 +120,7 @@ public class UserController {
                 usr.setUser_name(n_name);
                 usr.setUser_pwd(n_pwd);
                 userService.modifyUser(usr);
+                session.setAttribute("user_name",n_name);
                 return "1";
             }
         }

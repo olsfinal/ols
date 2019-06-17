@@ -75,18 +75,23 @@ public class CommodityService {
     }
 
 //    获取购物车总价
-    public float getTotalPrice(ShoppingCart cart){
-        Collection items = cart.getItems();
-        Iterator i = items.iterator();
-        float totalPrice=0.0f;
-        while (i.hasNext()) {
-            ShoppingCartItem sci = (ShoppingCartItem) i.next();
-            BeanCommodity bc = (BeanCommodity) sci.getItem();
-            int inventory=sci.getQuantity();
-            float od_price = bc.getC_price();
-            totalPrice+=inventory*od_price;
+    public float getTotalPrice(ShoppingCart cart) throws Exception{
+        try{
+            Collection items = cart.getItems();
+            Iterator i = items.iterator();
+            float totalPrice=0.0f;
+            while (i.hasNext()) {
+                ShoppingCartItem sci = (ShoppingCartItem) i.next();
+                BeanCommodity bc = (BeanCommodity) sci.getItem();
+                int inventory=sci.getQuantity();
+                float od_price = bc.getC_price();
+                totalPrice+=inventory*od_price;
+            }
+            return totalPrice;
         }
-        return totalPrice;
+        catch (Exception e){
+            throw new Exception("购物车为空");
+        }
     }
 
     //  更新商品存货（购买商品时）

@@ -37,6 +37,7 @@ public class InfoController {
     public ModelAndView showinfos(HttpServletRequest req, HttpServletResponse resq) throws Exception{
         HttpServletRequest request = (HttpServletRequest)req;
         HttpSession session = request.getSession();
+
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp/infos.jsp");
         return mv;

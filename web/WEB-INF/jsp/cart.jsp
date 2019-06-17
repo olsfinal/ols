@@ -116,7 +116,6 @@
                         console.log(res);
                         if (res.data == "1") {
                             location.href = "showcdetails";
-                            this.totalPrice.set("<%=session.getAttribute("totalprice")%>");
                         } else {
                             alert(res.data);
                         }

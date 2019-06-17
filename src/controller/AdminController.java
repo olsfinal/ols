@@ -35,7 +35,7 @@ public class AdminController {
     @RequestMapping("/aindex")
     public ModelAndView Aindex(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
-
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp2/aindex.jsp");
         return mv;
@@ -75,6 +75,7 @@ public class AdminController {
     @RequestMapping("/showcheckrefund")
     public ModelAndView showcheckrefund(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp2/checkrefund.jsp");
@@ -110,6 +111,7 @@ public class AdminController {
     @RequestMapping("/acommoditys")
     public ModelAndView Commoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp2/acommoditys.jsp");
@@ -120,6 +122,7 @@ public class AdminController {
     @RequestMapping("/showaddcommoditys")
     public ModelAndView showaddcommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
 
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp2/addcommoditys.jsp");
@@ -181,6 +184,8 @@ public class AdminController {
     @RequestMapping("/showupdatecommoditys")
     public ModelAndView showupdatecommoditys(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
+
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp2/modifyicommoditys.jsp");
         return mv;
@@ -242,6 +247,8 @@ public class AdminController {
     @RequestMapping("/showusers")
     public ModelAndView showusers(HttpServletRequest request, HttpServletResponse resq) throws Exception{
         HttpSession session = request.getSession();
+        if(String.valueOf(session.getAttribute("admin")).equals("0")) return null;
+
         List<BeanUser> users = userService.loadAllUsers();
         List<BeanUser> nus= new ArrayList<>();
         for(BeanUser user : users){

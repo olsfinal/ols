@@ -38,7 +38,7 @@
             <th width="120px">姓名</th>
             <th width="400px">地址</th>
             <th width="300px">电话</th>
-            <th width="200px">操作</th>
+            <th width="230px">操作</th>
         </tr>
     </table>
     <div v-for="(item,index) of infos" >
@@ -47,7 +47,7 @@
                 <td width="120px">{{item.name}}</td>
                 <td width="400px">{{item.address}}</td>
                 <td width="300px">{{item.tel}}</td>
-                <td width="200px">
+                <td width="230px">
                     <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
                     <button class="button1" @click="deli(item.id)"><span>删除</span></button>
                 </td>
@@ -56,7 +56,7 @@
                 <td width="120px">{{item.name}}</td>
                 <td width="400px">{{item.address}}</td>
                 <td width="300px">{{item.tel}}</td>
-                <td width="200px">
+                <td width="230px">
                     <button class="button1" @click="modifyi(item.id)"><span>修改</span></button>
                     <button class="button1" @click="deli(item.id)"><span>删除</span></button>
                 </td>

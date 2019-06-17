@@ -72,6 +72,9 @@
             user_pwd: "",
             user_pwd2: ""
         },
+        mounted: function(){
+            this.user_name="<%=(String) session.getAttribute("user_name") %>";
+        },
         methods: {
             confim : function() {
                 var params = new Object();
