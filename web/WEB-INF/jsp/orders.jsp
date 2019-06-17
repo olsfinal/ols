@@ -147,7 +147,7 @@
                     .then(function (res) {
                         console.log(res);
                         if(res.data=="1"){
-                            alert("退款成功");
+                            alert("退款请求成功");
                             location.href = "showorders";
                         }
                         else{

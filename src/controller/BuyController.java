@@ -186,6 +186,8 @@ public class BuyController {
             //     获取商品id对应的商品
             BeanCommodity commodity = commodityService.getCommodity(Integer.parseInt(c_id));
             cart.add(Integer.parseInt(c_id), commodity);
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
             return "1";
         } catch (Exception e) {
             return e.getMessage();
@@ -207,6 +209,8 @@ public class BuyController {
         try {
             //     获取商品id对应的商品
             cart.remove(Integer.parseInt(c_id));
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
             return "1";
         } catch (Exception e) {
             return e.getMessage();
@@ -216,9 +220,19 @@ public class BuyController {
 //    显示购物车
     @RequestMapping("/showcart")
     public ModelAndView Showcart(HttpServletRequest request, HttpServletResponse resq) throws Exception{
+        try{
+            HttpSession session = request.getSession();
+            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+            String totalPrice = Float.toString(commodityService.getTotalPrice(cart));
+            session.setAttribute("totalprice",totalPrice);
+//            System.out.println(totalPrice);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         ModelAndView mv=new ModelAndView();
         mv.setViewName("/WEB-INF/jsp/cart.jsp");
+
         return mv;
     }
 
@@ -230,7 +244,7 @@ public class BuyController {
         HttpSession session = request.getSession();
 //         从前端获取c_id
         String  c_id= request.getParameter("c_id");
-
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         try {
     //       获取商品id对应的商品
             BeanCommodity commodity = commodityService.getCommodity(Integer.parseInt(c_id));
@@ -273,7 +287,14 @@ public class BuyController {
         String user_id= (String) session.getAttribute("user_id");
         try {
     //      购买
+            float totalPrice=commodityService.getTotalPrice(cart);
+//            运费id为0
+            if(totalPrice<10){
+                BeanCommodity freight = commodityService.getCommodity(0);
+                cart.add(0,freight);
+            }
             commodityService.buyCommoditys(user_id,cart,info_id);
+            session.setAttribute("totalprice","0.0");
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return e.getMessage();

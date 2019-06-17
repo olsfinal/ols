@@ -33,7 +33,7 @@
     <button class="button2" @click="addi()"><span>新增</span></button>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable">
         <tr>
             <th width="120px">姓名</th>
             <th width="400px">地址</th>

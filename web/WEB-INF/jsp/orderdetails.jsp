@@ -33,7 +33,7 @@
     </p>
     <br>
     <br>
-    <table class="htable">
+    <table class="altrowstable" width="800px">
         <tr>
             <th width="30%">商品名称</th>
             <th width="20%">数量</th>

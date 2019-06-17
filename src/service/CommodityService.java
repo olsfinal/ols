@@ -73,6 +73,22 @@ public class CommodityService {
             orderService.generateOrderDetail(order_id,c_id,od_number,od_price);
         }
     }
+
+//    获取购物车总价
+    public float getTotalPrice(ShoppingCart cart){
+        Collection items = cart.getItems();
+        Iterator i = items.iterator();
+        float totalPrice=0.0f;
+        while (i.hasNext()) {
+            ShoppingCartItem sci = (ShoppingCartItem) i.next();
+            BeanCommodity bc = (BeanCommodity) sci.getItem();
+            int inventory=sci.getQuantity();
+            float od_price = bc.getC_price();
+            totalPrice+=inventory*od_price;
+        }
+        return totalPrice;
+    }
+
     //  更新商品存货（购买商品时）
     public void buyCommodity(int c_id, int od_number) throws Exception {
         BeanCommodity commodity = commodityDao.findCommodityById(c_id);
