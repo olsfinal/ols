@@ -155,7 +155,7 @@ public class OrderDao {
 //    返回所有订单细节
     public List<BeanOrderdetail> findAllOrderdetail() {
         List<BeanOrderdetail> orderDetails;
-        String sql = "select * from orderdetail_t";
+        String sql = "select * from orderdetail_t where c_id>0";
         RowMapper<BeanOrderdetail> rowMapper = new BeanPropertyRowMapper<BeanOrderdetail>(BeanOrderdetail.class);
         orderDetails = this.jdbcTemplate.query(sql, rowMapper);
         return orderDetails;
